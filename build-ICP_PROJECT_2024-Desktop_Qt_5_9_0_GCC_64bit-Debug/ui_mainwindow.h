@@ -56,13 +56,13 @@ public:
         pushButton_2->setGeometry(QRect(190, 90, 451, 41));
         pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        pushButton_4->setGeometry(QRect(190, 290, 121, 51));
+        pushButton_4->setGeometry(QRect(190, 310, 121, 51));
         pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
-        pushButton_5->setGeometry(QRect(510, 290, 121, 51));
+        pushButton_5->setGeometry(QRect(520, 310, 121, 51));
         textEdit = new QTextEdit(centralwidget);
         textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setGeometry(QRect(340, 380, 104, 70));
+        textEdit->setGeometry(QRect(193, 380, 451, 70));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -90,6 +90,14 @@ public:
         pushButton_2->setText(QApplication::translate("MainWindow", "New simulation", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("MainWindow", "Add robots", Q_NULLPTR));
         pushButton_5->setText(QApplication::translate("MainWindow", "Add obstacles", Q_NULLPTR));
+        textEdit->setHtml(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Path to the file</p></body></html>", Q_NULLPTR));
         menuSimulation->setTitle(QApplication::translate("MainWindow", "Simulation", Q_NULLPTR));
     } // retranslateUi
 

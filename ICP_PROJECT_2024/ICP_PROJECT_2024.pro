@@ -10,13 +10,19 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    obstacles.cpp \
+    robot_settings.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    obstacles.h \
+    robot_settings.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    obstacles.ui \
+    robot_settings.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
