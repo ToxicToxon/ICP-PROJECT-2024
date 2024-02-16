@@ -6,6 +6,7 @@ obstacles::obstacles(QWidget *parent)
     , ui(new Ui::obstacles)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Obstacle settings");
 }
 
 obstacles::~obstacles()

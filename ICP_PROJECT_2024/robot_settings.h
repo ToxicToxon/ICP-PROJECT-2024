@@ -15,6 +15,9 @@ public:
     explicit robot_settings(QWidget *parent = nullptr);
     ~robot_settings();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::robot_settings *ui;
 };

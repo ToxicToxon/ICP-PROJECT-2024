@@ -12,17 +12,20 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     obstacles.cpp \
-    robot_settings.cpp
+    robot_settings.cpp \
+    simulation.cpp
 
 HEADERS += \
     mainwindow.h \
     obstacles.h \
-    robot_settings.h
+    robot_settings.h \
+    simulation.h
 
 FORMS += \
     mainwindow.ui \
     obstacles.ui \
-    robot_settings.ui
+    robot_settings.ui \
+    simulation.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
