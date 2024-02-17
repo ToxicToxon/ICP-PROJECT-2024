@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QGraphicsItem>
+#include <QGraphicsView>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,5 +29,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsView *view;
 };
 #endif // MAINWINDOW_H
