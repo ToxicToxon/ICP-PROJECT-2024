@@ -26,7 +26,7 @@
     <string>width</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="text_width">
+  <widget class="QTextEdit" name="text_diameter">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -59,7 +59,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <string>position X/Y</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="saveButton">
    <property name="geometry">
     <rect>
      <x>140</x>

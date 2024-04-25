@@ -9,7 +9,5 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    Json_interface* jsonHandler = new Json_interface("./envObjects.json");
-    delete jsonHandler;
     return a.exec();
 }
