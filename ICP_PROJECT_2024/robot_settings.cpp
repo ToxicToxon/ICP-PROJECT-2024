@@ -32,7 +32,7 @@ void robot_settings::on_cancelButton_clicked()
 void robot_settings::on_saveButton_clicked()
 {
     int type = 0;
-    if (this->ui->checkBox_controlled) {
+    if (this->ui->checkBox_controlled->isChecked()) {
         type= 1;
     }
 
