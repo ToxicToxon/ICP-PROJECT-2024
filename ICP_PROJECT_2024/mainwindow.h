@@ -27,6 +27,8 @@ private slots:
 
     void on_set_path_Button_clicked();
 
+    void on_Button_simulate_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

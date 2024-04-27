@@ -57,3 +57,15 @@ void MainWindow::on_set_path_Button_clicked()
     cursor.mergeCharFormat(format);
 }
 
+
+void MainWindow::on_Button_simulate_clicked()
+{
+    QJsonObject objects;
+    JsonInterface *handle = JsonInterface::getJsonHandle();
+    if (!handle->getJsonObjects(&objects)) {
+        return; // Failed to load file
+    }
+
+    // TODO: Go Through objects and call a constructor
+}
+

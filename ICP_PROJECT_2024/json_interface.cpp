@@ -50,6 +50,38 @@ bool JsonInterface::setPath(QString filePath) {
     }
     m_filePath = filePath;
     this->m_pathSet = true;
+
+    // Check whether the file exists and set iterators based on its contents
+
+    QFile file(m_filePath);
+
+    if (file.open(QIODevice::ReadOnly)) {
+        QByteArray jsonData = file.readAll();
+        file.close();
+
+        QJsonParseError parseError;
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &parseError);
+        QJsonObject jsonObj = jsonDoc.object();
+
+        // Check robots
+        int iterator = 0;
+        QString id = "r" + QString::number(iterator);
+        while (jsonObj.contains(id)) {
+            iterator++;
+            id = "r" + QString::number(iterator);
+        }
+        this->robotCounter = iterator;
+
+        // Check obstacles
+        iterator = 0;
+        id = "o" + QString::number(iterator);
+        while (jsonObj.contains(id)) {
+            iterator++;
+            id = "o" + QString::number(iterator);
+        }
+        this->obstacleCounter = iterator;
+    }
+
     return true;
 }
 
@@ -124,24 +156,17 @@ bool JsonInterface::add_obstacle(const QString &name, int width, int orientation
 bool JsonInterface::add_object(const QString &name, const QJsonObject &obj) {
     QFile file(m_filePath);
 
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Error: Failed to open file " << m_filePath << ". File will be created.";
-        //return false;
-    }
+    file.open(QIODevice::ReadOnly); // Ignore fail, Write creates the file if it does not exist
     QByteArray jsonData = file.readAll();
     file.close();
 
     QJsonParseError parseError;
     QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &parseError);
 
-    if (jsonDoc.isNull()) {
-        qDebug() << "Error: Failed to create json document";
-        //return false;
-    }
 
     QJsonObject jsonObj = jsonDoc.object();
     if (jsonObj.contains(name)) {
-        qDebug() << "Error: Object already exists";
+        qDebug() << "Error: Entry already exists";
         return false;
     }
 
@@ -154,6 +179,29 @@ bool JsonInterface::add_object(const QString &name, const QJsonObject &obj) {
 
     file.write(QJsonDocument(jsonObj).toJson());
     file.close();
+    this->m_pathSet = true; // Once an object is inserted, the path cannot be changed
+    return true;
+}
 
+
+bool JsonInterface::getJsonObjects(QJsonObject *objectsPtr) {
+
+    QFile file(m_filePath);
+
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Error: Failed to open file " << m_filePath;
+        return false;
+    }
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData, &parseError);
+    if (jsonDoc.isNull()) {
+        qDebug() << "Failed to parse JSON:" << parseError.errorString();
+        return false;
+    }
+
+    *objectsPtr = jsonDoc.object();
     return true;
 }

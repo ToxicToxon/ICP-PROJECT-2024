@@ -16,6 +16,7 @@
 #include <QJsonDocument>
 #include <QCoreApplication>
 #include <QDir>
+#include <QString>
 
 class JsonInterface
 {
@@ -27,7 +28,7 @@ public:
     bool add_robot(const QString &name, int type, int width, int orientation, int x, int y, int fov,  int r_angle,  int r_direction);
     bool add_obstacle(const QString &name, int width, int orientation, int x, int y);
 
-    QJsonDocument load_objects();
+    bool getJsonObjects(QJsonObject *objectsPtr);
 
 private:
     static JsonInterface *instance;
@@ -36,7 +37,7 @@ private:
     int robotCounter = 0;
     int obstacleCounter = 0;
 
-    QJsonObject m_data;
+    QJsonDocument m_data;
     QString m_filePath;
     bool m_pathSet = false;
     bool add_object(const QString &name, const QJsonObject &obj);
