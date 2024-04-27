@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Robot simulation");
-    this->ui->filePath->setPlaceholderText("Path to file for readiong and writing simulation settings. If not set, default path will be used. Can only be set first.");
+    this->ui->filePath->setPlaceholderText("Path to file for readiong and writing simulation settings.");
 }
 
 MainWindow::~MainWindow()
@@ -21,23 +21,17 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_4_clicked()
+void MainWindow::on_add_robot_Button_clicked()
 {
     robot_settings robot_settings_dialog;
     robot_settings_dialog.exec();
 }
 
 
-void MainWindow::on_pushButton_5_clicked()
+void MainWindow::on_add_obstacle_Button_clicked()
 {
     obstacles obstacles_dialog;
     obstacles_dialog.exec();
-}
-
-
-void MainWindow::on_pushButton_2_clicked()
-{
-   // pushButton_2->hide();
 }
 
 
@@ -45,8 +39,36 @@ void MainWindow::on_set_path_Button_clicked()
 {
     QString filePath = this->ui->filePath->toPlainText();
     JsonInterface *handle = JsonInterface::getJsonHandle() ;
-    handle->setPath(filePath);
+    if (!handle->setPath(filePath, true)) {
+        qDebug() << "Error: Could not read file";
+        return;
+    }
+    this->updateButtons();
+}
+
+
+void MainWindow::on_create_file_Button_clicked()
+{
+    QString filePath = this->ui->filePath->toPlainText();
+    JsonInterface *handle = JsonInterface::getJsonHandle() ;
+    if (!handle->setPath(filePath, false)) {
+        qDebug() << "Error: Could not create file";
+        return;
+    }
+    this->updateButtons();
+}
+
+
+void MainWindow::updateButtons() {
     this->ui->filePath->setReadOnly(true);
+
+    // Set buttons state
+    this->ui->Button_simulate->setEnabled(true);
+    this->ui->new_simulation_Button->setEnabled(true);
+    this->ui->add_obstacle_Button->setEnabled(true);
+    this->ui->add_robot_Button->setEnabled(true);
+    this->ui->set_path_Button->setEnabled(false);
+    this->ui->create_file_Button->setEnabled(false);
 
     // Indicate change of state via color
     QTextCursor cursor = this->ui->filePath->textCursor();
@@ -68,4 +90,5 @@ void MainWindow::on_Button_simulate_clicked()
 
     // TODO: Go Through objects and call a constructor
 }
+
 

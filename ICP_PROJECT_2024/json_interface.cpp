@@ -17,21 +17,7 @@ JsonInterface* JsonInterface::instance = nullptr;
  */
 JsonInterface * JsonInterface::getJsonHandle() {
     if (instance == nullptr) {
-        QString buildDirPath = QCoreApplication::applicationDirPath();
-        QDir buildDir(buildDirPath);
-
-        // Get to build folder
-        if (!buildDir.cdUp() || !buildDir.cdUp() || !buildDir.cdUp()) {
-            qDebug() << "Failed to navigate to the desired directory.";
-            return nullptr;
-        }
-
-        // Construct the path to objects_file.json
-        QString filePath = buildDir.filePath("objects_file.json");
-        QFile file(filePath);
-        file.remove();
-
-        instance = new JsonInterface(filePath);
+        instance = new JsonInterface();
     }
 
     return instance;
@@ -44,16 +30,14 @@ void JsonInterface::deleteJsonHandler() {
 }
 
 
-bool JsonInterface::setPath(QString filePath) {
+bool JsonInterface::setPath(QString filePath, bool fileExists) {
     if (this->m_pathSet) {
         return false;
     }
-    m_filePath = filePath;
-    this->m_pathSet = true;
 
     // Check whether the file exists and set iterators based on its contents
 
-    QFile file(m_filePath);
+    QFile file(filePath);
 
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray jsonData = file.readAll();
@@ -81,7 +65,17 @@ bool JsonInterface::setPath(QString filePath) {
         }
         this->obstacleCounter = iterator;
     }
+    else {
+        if (fileExists) {
+            return false;
+        }
+        if (!file.open(QIODevice::WriteOnly)) {
+            return false;
+        }
+    }
 
+    m_filePath = filePath;
+    this->m_pathSet = true;
     return true;
 }
 

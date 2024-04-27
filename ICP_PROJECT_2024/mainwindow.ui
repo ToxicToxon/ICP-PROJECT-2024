@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="Button_simulate">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -27,7 +30,7 @@
      <string>Simulate</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="exit_Button">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -40,7 +43,10 @@
      <string>Exit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="new_simulation_Button">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -53,7 +59,10 @@
      <string>New simulation</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="add_robot_Button">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -66,7 +75,10 @@
      <string>Add robots</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="add_obstacle_Button">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -102,14 +114,27 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QPushButton" name="set_path_Button">
     <property name="geometry">
      <rect>
-      <x>350</x>
+      <x>200</x>
       <y>460</y>
       <width>131</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Set path to file</string>
+     <string>Use existing file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="create_file_Button">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>460</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create new file</string>
     </property>
    </widget>
   </widget>
@@ -134,7 +159,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
  <resources/>
  <connections>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>exit_Button</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
@@ -150,7 +175,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>new_simulation_Button</sender>
    <signal>clicked()</signal>
    <receiver>Button_simulate</receiver>
    <slot>hide()</slot>
@@ -166,9 +191,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>new_simulation_Button</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_3</receiver>
+   <receiver>exit_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -182,9 +207,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>new_simulation_Button</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_5</receiver>
+   <receiver>add_obstacle_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -198,9 +223,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>new_simulation_Button</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_4</receiver>
+   <receiver>add_robot_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -214,7 +239,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>new_simulation_Button</sender>
    <signal>clicked()</signal>
    <receiver>filePath</receiver>
    <slot>hide()</slot>
@@ -230,9 +255,9 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_2</sender>
+   <sender>new_simulation_Button</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_2</receiver>
+   <receiver>new_simulation_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -248,7 +273,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <connection>
    <sender>Button_simulate</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_2</receiver>
+   <receiver>new_simulation_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -280,7 +305,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <connection>
    <sender>Button_simulate</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_4</receiver>
+   <receiver>add_robot_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -296,7 +321,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <connection>
    <sender>Button_simulate</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_3</receiver>
+   <receiver>exit_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -328,7 +353,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <connection>
    <sender>Button_simulate</sender>
    <signal>clicked()</signal>
-   <receiver>pushButton_5</receiver>
+   <receiver>add_obstacle_Button</receiver>
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">

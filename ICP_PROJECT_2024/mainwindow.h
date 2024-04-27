@@ -19,17 +19,19 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_4_clicked();
+    void on_add_robot_Button_clicked();
 
-    void on_pushButton_5_clicked();
-
-    void on_pushButton_2_clicked();
+    void on_add_obstacle_Button_clicked();
 
     void on_set_path_Button_clicked();
 
     void on_Button_simulate_clicked();
 
+    void on_create_file_Button_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    void updateButtons();
 };
 #endif // MAINWINDOW_H
