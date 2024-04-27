@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,6 +24,8 @@ private slots:
     void on_pushButton_5_clicked();
 
     void on_pushButton_2_clicked();
+
+    void on_set_path_Button_clicked();
 
 private:
     Ui::MainWindow *ui;

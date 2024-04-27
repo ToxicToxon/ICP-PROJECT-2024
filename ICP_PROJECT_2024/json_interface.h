@@ -1,3 +1,10 @@
+/**
+ * @file json_interface.h
+ * @brief Definition of the singleton class json_interface.
+ * @author Ondřej Beneš
+ * @date 24.4.2024
+ */
+
 #ifndef JSON_INTERFACE_H
 #define JSON_INTERFACE_H
 
@@ -15,9 +22,12 @@ class JsonInterface
 public:
     static JsonInterface * getJsonHandle();
     static void deleteJsonHandler();
+    bool setPath(QString filePath);
 
     bool add_robot(const QString &name, int type, int width, int orientation, int x, int y, int fov,  int r_angle,  int r_direction);
     bool add_obstacle(const QString &name, int width, int orientation, int x, int y);
+
+    QJsonDocument load_objects();
 
 private:
     static JsonInterface *instance;
@@ -28,6 +38,7 @@ private:
 
     QJsonObject m_data;
     QString m_filePath;
+    bool m_pathSet = false;
     bool add_object(const QString &name, const QJsonObject &obj);
 };
 

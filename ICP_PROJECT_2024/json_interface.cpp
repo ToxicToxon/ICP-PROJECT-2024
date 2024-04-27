@@ -1,3 +1,10 @@
+/**
+ * @file json_interface.cpp
+ * @brief Implementation of the singleton class json_interface.
+ * @author Ondřej Beneš
+ * @date 24.4.2024
+ */
+
 #include "json_interface.h"
 
 JsonInterface* JsonInterface::instance = nullptr;
@@ -34,6 +41,16 @@ void JsonInterface::deleteJsonHandler() {
     if (instance != nullptr) {
         delete instance;
     }
+}
+
+
+bool JsonInterface::setPath(QString filePath) {
+    if (this->m_pathSet) {
+        return false;
+    }
+    m_filePath = filePath;
+    this->m_pathSet = true;
+    return true;
 }
 
 

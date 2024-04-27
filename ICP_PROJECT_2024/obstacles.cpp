@@ -24,7 +24,7 @@ void obstacles::on_saveButton_clicked()
 
     JsonInterface* jsonHandler = JsonInterface::getJsonHandle();
 
-    jsonHandler->add_obstacle("obstacle", diameter, angle, x_pos, y_pos);
+    jsonHandler->add_obstacle("o", diameter, angle, x_pos, y_pos);
 
     // Clear all text fields
     this->ui->text_diameter->clear();
