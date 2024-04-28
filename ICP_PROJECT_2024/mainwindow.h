@@ -23,8 +23,6 @@ private slots:
 
     void on_add_obstacle_Button_clicked();
 
-    void on_set_path_Button_clicked();
-
     void on_Button_simulate_clicked();
 
     void on_create_file_Button_clicked();

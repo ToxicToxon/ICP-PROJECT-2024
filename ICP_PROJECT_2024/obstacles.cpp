@@ -1,6 +1,6 @@
 #include "obstacles.h"
 #include "ui_obstacles.h"
-#include "json_interface.h"
+#include "SessionManager.h"
 
 obstacles::obstacles(QWidget *parent)
     : QDialog(parent)
@@ -22,9 +22,9 @@ void obstacles::on_saveButton_clicked()
     int x_pos =  this->ui->text_x->toPlainText().toInt();
     int y_pos = this->ui->text_y->toPlainText().toInt();
 
-    JsonInterface* jsonHandler = JsonInterface::getJsonHandle();
+    SessionManager* jsonHandler = SessionManager::getManagerHandle();
 
-    jsonHandler->add_obstacle("o", diameter, angle, x_pos, y_pos);
+    jsonHandler->addObstacle(diameter, angle, x_pos, y_pos);
 
     // Clear all text fields
     this->ui->text_diameter->clear();

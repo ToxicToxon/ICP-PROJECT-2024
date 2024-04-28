@@ -5,7 +5,7 @@
  * @date 20.3.2024
  */
 
-#include "json_interface.h"
+#include "SessionManager.h"
 #include "mainwindow.h"
 
 #include <QApplication>
@@ -16,10 +16,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
 
-    JsonInterface::getJsonHandle();
+    SessionManager::getManagerHandle();
 
     int ret = a.exec();
 
-    JsonInterface::deleteJsonHandler();
+    SessionManager::deleteManagerHandle();
     return ret;
 }

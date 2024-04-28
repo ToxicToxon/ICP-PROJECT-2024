@@ -8,7 +8,7 @@
 
 #include "robot_settings.h"
 #include "ui_robot_settings.h"
-#include "json_interface.h"
+#include "SessionManager.h"
 
 robot_settings::robot_settings(QWidget *parent)
     : QDialog(parent)
@@ -80,9 +80,9 @@ void robot_settings::on_saveButton_clicked()
         return;
     }
 
-    JsonInterface* jsonHandler = JsonInterface::getJsonHandle();
+    SessionManager* jsonHandler = SessionManager::getManagerHandle();
 
-    jsonHandler->add_robot("r", type, diameter, angle, x_pos, y_pos, fov, r_angle, r_direction);
+    jsonHandler->addRobot(type, diameter, angle, x_pos, y_pos, fov, r_angle, r_direction);
 
     // Clear all textboxes
     this->ui->text_diameter->clear();

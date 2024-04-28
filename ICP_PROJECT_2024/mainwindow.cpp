@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "robot_settings.h"
 #include "obstacles.h"
-#include "json_interface.h"
+#include "SessionManager.h"
 //#include "simulation.h"
 #include <QApplication>
 
@@ -35,26 +35,8 @@ void MainWindow::on_add_obstacle_Button_clicked()
 }
 
 
-void MainWindow::on_set_path_Button_clicked()
-{
-    QString filePath = this->ui->filePath->toPlainText();
-    JsonInterface *handle = JsonInterface::getJsonHandle() ;
-    if (!handle->setPath(filePath, true)) {
-        qDebug() << "Error: Could not read file";
-        return;
-    }
-    this->updateButtons();
-}
-
-
 void MainWindow::on_create_file_Button_clicked()
 {
-    QString filePath = this->ui->filePath->toPlainText();
-    JsonInterface *handle = JsonInterface::getJsonHandle() ;
-    if (!handle->setPath(filePath, false)) {
-        qDebug() << "Error: Could not create file";
-        return;
-    }
     this->updateButtons();
 }
 
@@ -82,13 +64,10 @@ void MainWindow::updateButtons() {
 
 void MainWindow::on_Button_simulate_clicked()
 {
-    QJsonObject objects;
-    JsonInterface *handle = JsonInterface::getJsonHandle();
-    if (!handle->getJsonObjects(&objects)) {
-        return; // Failed to load file
-    }
-
     // TODO: Go Through objects and call a constructor
+    SessionManager * handle = SessionManager::getManagerHandle();
+    handle->saveSession("/Users/ondra/Desktop/SAVEFILE.json", true);
+
 }
 
 
