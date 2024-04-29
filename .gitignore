@@ -2,5 +2,7 @@
 .DS_Store
 
 # Ignore build files
+build-*
 ICP_PROJECT_2024/build/*
-ICP_PROJECT_2024/ICP_PROJECT_2024.pro.user
+ICP_PROJECT_2024/ICP_PROJECT_2024.pro.*
+
