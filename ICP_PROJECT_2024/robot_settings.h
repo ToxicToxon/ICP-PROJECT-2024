@@ -16,7 +16,9 @@ public:
     ~robot_settings();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_saveButton_clicked();
+
+    void on_cancelButton_clicked();
 
 private:
     Ui::robot_settings *ui;

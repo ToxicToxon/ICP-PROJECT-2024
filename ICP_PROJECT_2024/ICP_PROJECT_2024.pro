@@ -9,23 +9,31 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    json_interface.cpp \
     main.cpp \
     mainwindow.cpp \
-    obstacles.cpp \
+    maparea.cpp \
+    obstacle.cpp \
+    robot.cpp \
     robot_settings.cpp \
-    simulation.cpp
+    simulation.cpp \
+    obstacles.cpp
 
 HEADERS += \
+    json_interface.h \
     mainwindow.h \
-    obstacles.h \
+    maparea.h \
+    obstacle.h \
+    robot.h \
     robot_settings.h \
-    simulation.h
+    simulation.h \
+    obstacles.h
 
 FORMS += \
     mainwindow.ui \
-    obstacles.ui \
     robot_settings.ui \
-    simulation.ui
+    simulation.ui \
+    obstacles.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

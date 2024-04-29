@@ -15,6 +15,9 @@ public:
     explicit obstacles(QWidget *parent = nullptr);
     ~obstacles();
 
+private slots:
+    void on_saveButton_clicked();
+
 private:
     Ui::obstacles *ui;
 };
