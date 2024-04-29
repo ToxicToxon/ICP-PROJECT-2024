@@ -5,8 +5,8 @@
 class Robot
 {
 public:
-    Robot(int index, int type, int width, int orientation, int x, int y, int detection, int rotationAngle, int rotationDirection, QGraphicsItem* robotEllipse);
-    void draw();
+    Robot(int index, int speed, int type, int width, int orientation, int x, int y, int detection, int rotationAngle, int rotationDirection, QGraphicsItem* robotEllipse);
+    void draw(QGraphicsScene* scene);
     void move();
     void rotateLeft();
     void rotateRight();
@@ -14,6 +14,7 @@ public:
 private:
     int index;
     int type;
+    int speed;
     int width;
     int orientation;
     int x;

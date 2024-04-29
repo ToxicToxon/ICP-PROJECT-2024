@@ -117,10 +117,8 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
 
 void MainWindow::draw()
 {
-    int i = rand()%100+1;
     this->ticker.setInterval(50);
-    qDebug() << "test"; //TODO: use items
-    QGraphicsItem* ellipse = this->scene->addEllipse(20+i + this->map->getWidth()/2,20+i + this->map->getHeight()/2,50+i*6,50+i*6);
+    this->map->drawMap(this->scene);
     this->sceneView->update();
 }
 
@@ -135,15 +133,15 @@ void MainWindow::on_Button_simulate_clicked()
     //setup scene
     this->scene = new QGraphicsScene();
     this->scene->setSceneRect(0, 0, 1920, 1080);
-
     this->sceneView = new QGraphicsView();
     this->map = new MapArea(1920, 1080);
     this->setCentralWidget(this->sceneView);
     this->createSceneButtons(this->scene);
     this->ticker.start();
     this->sceneView->setScene(this->scene);
-    QObject::connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
-    delete this->map;
+    this->map->AddRobot(this->scene);
+    connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
+    //delete this->map;
 
     // TODO: Go Through objects and call a constructor
 }
