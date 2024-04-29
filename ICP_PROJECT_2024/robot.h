@@ -5,7 +5,7 @@
 class Robot
 {
 public:
-    Robot(int index, int speed, int type, int width, int orientation, int x, int y, int detection, int rotationAngle, int rotationDirection, QGraphicsItem* robotEllipse);
+    Robot(int index, int speed, int type, int width, int orientation, int x, int y, int detection, int rotationAngle, int rotationDirection, QGraphicsItemGroup* robotGraphic);
     void draw(QGraphicsScene* scene);
     void move();
     void rotateLeft();
@@ -22,7 +22,7 @@ private:
     int detection;
     int rotationAngle;
     int rotationDirection;
-    QGraphicsItem* robotEllipse;
+    QGraphicsItemGroup* robotGraphic;
 };
 
 #endif // ROBOT_H

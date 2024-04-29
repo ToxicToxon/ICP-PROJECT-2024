@@ -12,8 +12,10 @@ MapArea::MapArea(size_t width, size_t height)
 void MapArea::drawMap(QGraphicsScene* scene)
 {
     //foreach cycle through each robot and obstacle, draw them, clear scene with every frame
-    qDebug() << this->robotBuffer.size(); //TODO: use items
-    this->robotBuffer[0]->draw(scene);
+    for(Robot* robot: this->robotBuffer)
+        robot->draw(scene);
+    for(Obstacle* obstacle: this->obstacleBuffer)
+        obstacle->draw(scene);
 }
 
 size_t MapArea::getWidth()
@@ -28,8 +30,17 @@ size_t MapArea::getHeight()
 
 void MapArea::AddRobot(QGraphicsScene* scene)
 {
-    this->robotBuffer.push_back(new Robot(this->robotBuffer.size(), 10, 1, 20, 20, 500, 500, 10, 100, 45, scene->addEllipse(500, 500, 20,20)));
+    QGraphicsItem* ellipse = scene->addEllipse(500, 500, 20,20);
+    QGraphicsItem* rectangle = scene->addRect(500, 500, 80, 20);
+    rectangle->setRotation(rectangle->rotation() + (-45));
+    QGraphicsItemGroup* robotGraphic = scene->createItemGroup({ellipse, rectangle});
+    this->robotBuffer.push_back(new Robot(this->robotBuffer.size(), 4, 1, 20, 20, 800, 800, 10, 145, 45, robotGraphic));
     qDebug()<< this->robotBuffer.size();
+}
+
+void MapArea::AddObstacle(QGraphicsScene* scene)
+{
+    this->obstacleBuffer.push_back(new Obstacle(800, 800, 45, 45, scene->addRect(800, 800, 45, 45)));
 }
 
 MapArea::~MapArea()

@@ -13,15 +13,16 @@ public:
     ~MapArea();
     void drawMap(QGraphicsScene* scene);
     void AddRobot(QGraphicsScene* scene);
-    void AddObstacle();
+    void AddObstacle(QGraphicsScene* scene);
     void removeRobot();
     void removeObstacle();
     size_t getWidth();
     size_t getHeight();
-    std::vector<Robot*> robotBuffer; //TODO: move to private
+
 private:
     size_t width;
     size_t height;
+    std::vector<Robot*> robotBuffer;
     std::vector<Obstacle*> obstacleBuffer;
     void drawTick(QGraphicsScene* scene, QGraphicsView* view);
 };

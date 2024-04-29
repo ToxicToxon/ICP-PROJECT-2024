@@ -117,7 +117,7 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
 
 void MainWindow::draw()
 {
-    this->ticker.setInterval(50);
+    this->ticker.setInterval(10);
     this->map->drawMap(this->scene);
     this->sceneView->update();
 }
@@ -140,6 +140,7 @@ void MainWindow::on_Button_simulate_clicked()
     this->ticker.start();
     this->sceneView->setScene(this->scene);
     this->map->AddRobot(this->scene);
+    this->map->AddObstacle(this->scene);
     connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
     //delete this->map;
 
