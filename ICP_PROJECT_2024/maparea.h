@@ -21,12 +21,16 @@ public:
     MapArea(size_t width, size_t height);
     ~MapArea();
     void drawMap(QGraphicsScene* scene);
-    void AddRobot(QGraphicsScene* scene, SessionManager::robotData settings);
-    void AddObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings);
+    void addRobot(QGraphicsScene* scene, SessionManager::robotData settings);
+    void addObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings);
+    void turnAllUserRobots(bool turn); //false = left, true = right
+    void goAllUserRobots();
+    void stopAllUserRobots();
     void removeRobot();
     void removeObstacle();
     size_t getWidth();
     size_t getHeight();
+
 
 private:
     size_t width;

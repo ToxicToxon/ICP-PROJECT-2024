@@ -9,6 +9,11 @@ Obstacle::Obstacle(size_t x, size_t y, size_t width, int angle, QGraphicsItem* o
     this->obstacleGraphic = obstacleGraphic;
     this->angle = angle;
 }
+
+QGraphicsItem* Obstacle::getGraphic()
+{
+    return this->obstacleGraphic;
+}
 void Obstacle::draw(QGraphicsScene* scene)
 {
     //TODO: box, not rotated
