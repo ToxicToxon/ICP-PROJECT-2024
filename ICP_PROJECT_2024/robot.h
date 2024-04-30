@@ -22,9 +22,10 @@ private:
     int x;
     int y;
     int detection;
-    int currentAngle;
-    int rotationAngle;
-    int rotationDirection;
+    double currentAngle;
+    double expectedAngle;
+    double rotationAngle;
+    bool rotationDirection; //false = left, true = right
     QGraphicsItemGroup* robotGraphic;
 };
 

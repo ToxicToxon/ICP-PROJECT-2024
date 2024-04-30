@@ -11,9 +11,13 @@ Robot::Robot(int index,int speed, int type, int width, int orientation, int x, i
     this->x = x;
     this->y = y;
     this->detection = detection;
-    this->rotationAngle = rotationAngle;
-    this->currentAngle = rotationAngle;
-    this->rotationDirection = rotationDirection;
+    this->rotationAngle = (double)rotationAngle;
+    this->currentAngle = (double)rotationAngle;
+    this->expectedAngle = (double)rotationAngle;
+    if(rotationDirection == 1)
+        this->rotationDirection = false;
+    else
+        this->rotationDirection = true;
     this->robotGraphic = robotGraphic;
     this->speed = speed;
 }
@@ -21,8 +25,8 @@ Robot::Robot(int index,int speed, int type, int width, int orientation, int x, i
 void Robot::move()
 {
     //get new position using angle in radians
-    this->x += (int)((double)this->speed*cos(double(this->currentAngle) /57.3));
-    this->y += (int)((double)this->speed*(-sin(double(this->currentAngle) /57.3)));
+    this->x += (int)((double)this->speed*cos(this->currentAngle /57.3));
+    this->y += (int)((double)this->speed*(-sin(this->currentAngle /57.3)));
 }
 
 int Robot::getType()
@@ -32,19 +36,36 @@ int Robot::getType()
 
 void Robot::turn(bool turn)
 {
-    qDebug() << "turning?";
     if(turn == false)
-        this->currentAngle += this->rotationAngle;
+    {
+        this->expectedAngle += this->rotationAngle;
+        this->rotationDirection = 1;
+    }
     else
-        this->currentAngle -= this->rotationAngle;
-    qDebug() << this->rotationAngle;
+    {
+        this->expectedAngle -= this->rotationAngle;
+        this->rotationDirection = 2;
+    }
 }
 
 void Robot::draw(QGraphicsScene* scene)
 {
     //moving circle
-     qDebug() << this->rotationAngle;
     scene->removeItem(this->robotGraphic);
+    //smooth turns
+    double turningSpeed = this->rotationAngle*0.05;
+    if(turningSpeed < 0)
+        turningSpeed = -turningSpeed;
+    if(turningSpeed > 2)
+        turningSpeed = 2;
+    if(turningSpeed < 0.75)
+        turningSpeed = 0.75;
+    if(this->currentAngle < this->expectedAngle - 5)
+        this->currentAngle += turningSpeed;
+    else if(this->currentAngle > this->expectedAngle + 5)
+        this->currentAngle -= turningSpeed;
+    else
+        this->currentAngle = this->expectedAngle;
     QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
     //detection rectangle
     QGraphicsItem* rectangle = scene->addRect(this->x + this->width, this->y, this->detection, this->width);

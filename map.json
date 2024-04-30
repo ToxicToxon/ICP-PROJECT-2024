@@ -55,7 +55,7 @@
         {
             "Detection": 50,
             "Orientation": 225,
-            "RotationAngle": 15,
+            "RotationAngle": 150,
             "RotationDirection": 2,
             "Type": 1,
             "Width": 40,
