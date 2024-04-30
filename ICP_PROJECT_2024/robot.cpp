@@ -28,8 +28,8 @@ Robot::Robot(int index,int speed, int type, int width, int orientation, int x, i
 void Robot::move()
 {
     //get new position using angle in radians
-    this->x += (int)((double)this->speed*cos(this->currentAngle /57.3));
-    this->y += (int)((double)this->speed*(-sin(this->currentAngle /57.3)));
+    this->x += (double)this->speed*cos(this->currentAngle /57.29578);
+    this->y += (double)this->speed*(-sin(this->currentAngle /57.29578));
 }
 
 void Robot::stop()
@@ -39,7 +39,6 @@ void Robot::stop()
 
 void Robot::go()
 {
-    qDebug() << "gotta go fast";
     this->speed = 4;
 }
 

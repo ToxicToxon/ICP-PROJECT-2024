@@ -25,8 +25,8 @@ private:
     int speed;
     int width;
     int orientation;
-    int x;
-    int y;
+    double x;
+    double y;
     int detection;
     double currentAngle;
     double expectedAngle;

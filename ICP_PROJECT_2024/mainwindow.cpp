@@ -55,7 +55,6 @@ void MainWindow::turnLeft()
 
 void MainWindow::turnRight()
 {
-    qDebug() << "turn right";
     this->map->turnAllUserRobots(true);
 }
 
