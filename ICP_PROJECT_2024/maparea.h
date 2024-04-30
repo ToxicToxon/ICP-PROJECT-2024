@@ -1,3 +1,11 @@
+/**
+ * @file maparea.h
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 29.4.2024
+ */
+
 #ifndef MAPAREA_H
 #define MAPAREA_H
 
@@ -6,14 +14,15 @@
 #include "robot.h"
 #include "obstacle.h"
 #include <QGraphicsScene>
+#include "SessionManager.h"
 class MapArea
 {
 public:
     MapArea(size_t width, size_t height);
     ~MapArea();
     void drawMap(QGraphicsScene* scene);
-    void AddRobot(QGraphicsScene* scene);
-    void AddObstacle(QGraphicsScene* scene);
+    void AddRobot(QGraphicsScene* scene, SessionManager::robotData settings);
+    void AddObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings);
     void removeRobot();
     void removeObstacle();
     size_t getWidth();

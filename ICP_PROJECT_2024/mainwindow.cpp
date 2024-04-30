@@ -1,10 +1,17 @@
+/**
+ * @file mainwindow.h
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 17.3.2024
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "robot_settings.h"
 #include "obstacles.h"
-#include "json_interface.h"
+#include "SessionManager.h"
 #include "maparea.h"
-//#include "simulation.h"
 #include <QApplication>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -13,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Robot simulation");
-    this->ui->filePath->setPlaceholderText("Path to file for readiong and writing simulation settings.");
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -36,54 +43,11 @@ void MainWindow::on_add_obstacle_Button_clicked()
 }
 
 
-void MainWindow::on_set_path_Button_clicked()
-{
-    QString filePath = this->ui->filePath->toPlainText();
-    JsonInterface *handle = JsonInterface::getJsonHandle() ;
-    if (!handle->setPath(filePath, true)) {
-        qDebug() << "Error: Could not read file";
-        return;
-    }
-    this->updateButtons();
-}
-
-
-void MainWindow::on_create_file_Button_clicked()
-{
-    QString filePath = this->ui->filePath->toPlainText();
-    JsonInterface *handle = JsonInterface::getJsonHandle() ;
-    if (!handle->setPath(filePath, false)) {
-        qDebug() << "Error: Could not create file";
-        return;
-    }
-    this->updateButtons();
-}
-
-
-void MainWindow::updateButtons() {
-    this->ui->filePath->setReadOnly(true);
-
-    // Set buttons state
-    this->ui->Button_simulate->setEnabled(true);
-    this->ui->new_simulation_Button->setEnabled(true);
-    this->ui->add_obstacle_Button->setEnabled(true);
-    this->ui->add_robot_Button->setEnabled(true);
-    this->ui->set_path_Button->setEnabled(false);
-    this->ui->create_file_Button->setEnabled(false);
-
-    // Indicate change of state via color
-    QTextCursor cursor = this->ui->filePath->textCursor();
-    QTextCharFormat format;
-    format.setForeground(QColor(Qt::gray));
-    format.setFontItalic(true);
-    cursor.select(QTextCursor::Document);
-    cursor.mergeCharFormat(format);
-}
-
 void MainWindow::exitButtons()
 {
     this->close();
 }
+
 
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
 {
@@ -98,7 +62,9 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     QPushButton* saveCurrentState = new QPushButton();
     saveCurrentState->setText("Save");
     saveCurrentState->setGeometry(1015,20, 100, 50);
+    connect(saveCurrentState, &QPushButton::released, this, &MainWindow::on_ButtonSaveSession_clicked);
     scene->addWidget(saveCurrentState);
+
 
     //button to add robot;
     QPushButton* addRobotButton = new QPushButton();
@@ -115,6 +81,7 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     scene->addWidget(addObstacleButton);
 }
 
+
 void MainWindow::draw()
 {
     this->ticker.setInterval(10);
@@ -122,15 +89,15 @@ void MainWindow::draw()
     this->sceneView->update();
 }
 
-void MainWindow::on_Button_simulate_clicked()
+
+void MainWindow::on_ButtonSimulate_clicked()
 {
-    QJsonObject objects;
-    JsonInterface *handle = JsonInterface::getJsonHandle();
-    /*if (!handle->getJsonObjects(&objects))
-    {
-        return; // Failed to load file
-    }*/
+    // Load all objects for the session
+    SessionManager *manager = SessionManager::getManagerHandle();
+    SessionManager::sessionData data = manager->getSessionData();
+
     //setup scene
+    this->resize(1920, 1080); // Set size of the window
     this->scene = new QGraphicsScene();
     this->scene->setSceneRect(0, 0, 1920, 1080);
     this->sceneView = new QGraphicsView();
@@ -139,12 +106,29 @@ void MainWindow::on_Button_simulate_clicked()
     this->createSceneButtons(this->scene);
     this->ticker.start();
     this->sceneView->setScene(this->scene);
-    this->map->AddRobot(this->scene);
-    this->map->AddObstacle(this->scene);
+    for (SessionManager::robotData robot : data.robots) {
+        this->map->AddRobot(this->scene, robot);
+    }
+    for (SessionManager::obstacleData obstacle : data.obstacles) {
+        this->map->AddObstacle(this->scene, obstacle);
+    }
     connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
     //delete this->map;
-
-    // TODO: Go Through objects and call a constructor
 }
 
 
+void MainWindow::on_ButtonLoadSession_clicked()
+{
+    SessionManager *manager = SessionManager::getManagerHandle();
+    if (manager->loadSessionData(this->ui->TextPathToFile->toPlainText())) {
+        this->ui->TextPathToFile->setPlaceholderText("Session loaded.");
+        return;
+    }
+    this->ui->TextPathToFile->setPlaceholderText("Loading failed");
+}
+
+void MainWindow::on_ButtonSaveSession_clicked()
+{
+    SessionManager *manager = SessionManager::getManagerHandle();
+    //manager->saveSession("/Users/ondra/Desktop/testout.json", true); // TODO: Change file to "this->ui->TextPathToFile->toPlainText()"
+}

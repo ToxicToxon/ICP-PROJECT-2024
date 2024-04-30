@@ -1,3 +1,11 @@
+/**
+ * @file mainwindow.h
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 17.3.2024
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -31,19 +39,17 @@ private slots:
 
     void on_add_obstacle_Button_clicked();
 
-    void on_set_path_Button_clicked();
-
-    void on_Button_simulate_clicked();
-
-    void on_create_file_Button_clicked();
+    void on_ButtonSimulate_clicked();
 
     void exitButtons();
+
+    void on_ButtonLoadSession_clicked();
+
+    void on_ButtonSaveSession_clicked();
 
 private:
     Ui::MainWindow *ui;
 
     QGraphicsView *view;
-
-    void updateButtons();
 };
 #endif // MAINWINDOW_H

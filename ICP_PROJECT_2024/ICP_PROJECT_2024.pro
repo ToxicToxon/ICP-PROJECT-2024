@@ -16,7 +16,6 @@ SOURCES += \
     obstacle.cpp \
     robot.cpp \
     robot_settings.cpp \
-    simulation.cpp \
     obstacles.cpp
 
 HEADERS += \
@@ -26,13 +25,11 @@ HEADERS += \
     obstacle.h \
     robot.h \
     robot_settings.h \
-    simulation.h \
     obstacles.h
 
 FORMS += \
     mainwindow.ui \
     robot_settings.ui \
-    simulation.ui \
     obstacles.ui
 
 # Default rules for deployment.

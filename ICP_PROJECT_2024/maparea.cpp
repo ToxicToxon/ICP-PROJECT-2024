@@ -1,3 +1,11 @@
+/**
+ * @file maparea.cpp
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 29.4.2024
+ */
+
 #include "maparea.h"
 #include <QDebug>
 
@@ -28,19 +36,20 @@ size_t MapArea::getHeight()
     return this->height;
 }
 
-void MapArea::AddRobot(QGraphicsScene* scene)
+void MapArea::AddRobot(QGraphicsScene* scene, SessionManager::robotData settings)
 {
-    QGraphicsItem* ellipse = scene->addEllipse(500, 500, 20,20);
-    QGraphicsItem* rectangle = scene->addRect(500, 500, 80, 20);
+    QGraphicsItem* ellipse = scene->addEllipse(settings.X, settings.Y, settings.Width, settings.Width);
+    QGraphicsItem* rectangle = scene->addRect(settings.X, settings.Y, settings.Detection, settings.Width);
     rectangle->setRotation(rectangle->rotation() + (-45));
     QGraphicsItemGroup* robotGraphic = scene->createItemGroup({ellipse, rectangle});
-    this->robotBuffer.push_back(new Robot(this->robotBuffer.size(), 4, 1, 20, 20, 800, 800, 10, 145, 45, robotGraphic));
-    qDebug()<< this->robotBuffer.size();
+    this->robotBuffer.push_back(new Robot(this->robotBuffer.size(), 4, settings.Type, settings.Width, settings.Orientation, settings.X, settings.Y,
+                                          settings.Detection, settings.RotationAngle, settings.RotationDirection, robotGraphic));
 }
 
-void MapArea::AddObstacle(QGraphicsScene* scene)
+void MapArea::AddObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings)
 {
-    this->obstacleBuffer.push_back(new Obstacle(800, 800, 45, 45, scene->addRect(800, 800, 45, 45)));
+    this->obstacleBuffer.push_back(new Obstacle(settings.X, settings.Y, settings.Width, settings.Orientation,
+                                                scene->addRect(settings.X, settings.Y, settings.Width, settings.Orientation)));
 }
 
 MapArea::~MapArea()
