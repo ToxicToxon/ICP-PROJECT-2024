@@ -26,6 +26,16 @@ void MapArea::drawMap(QGraphicsScene* scene)
         obstacle->draw(scene);
 }
 
+void MapArea::turnAllUserRobots(bool turn)
+{
+    qDebug() << "turn all";
+    for(Robot* robot : robotBuffer)
+    {
+        if(robot->getType() == 1)
+            robot->turn(turn);
+    }
+}
+
 size_t MapArea::getWidth()
 {
     return this->width;
@@ -36,7 +46,7 @@ size_t MapArea::getHeight()
     return this->height;
 }
 
-void MapArea::AddRobot(QGraphicsScene* scene, SessionManager::robotData settings)
+void MapArea::addRobot(QGraphicsScene* scene, SessionManager::robotData settings)
 {
     QGraphicsItem* ellipse = scene->addEllipse(settings.X, settings.Y, settings.Width, settings.Width);
     QGraphicsItem* rectangle = scene->addRect(settings.X, settings.Y, settings.Detection, settings.Width);
@@ -46,7 +56,7 @@ void MapArea::AddRobot(QGraphicsScene* scene, SessionManager::robotData settings
                                           settings.Detection, settings.RotationAngle, settings.RotationDirection, robotGraphic));
 }
 
-void MapArea::AddObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings)
+void MapArea::addObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings)
 {
     this->obstacleBuffer.push_back(new Obstacle(settings.X, settings.Y, settings.Width, settings.Orientation,
                                                 scene->addRect(settings.X, settings.Y, settings.Width, settings.Orientation)));

@@ -37,7 +37,7 @@
             "Orientation": 0,
             "RotationAngle": 15,
             "RotationDirection": 1,
-            "Type": 0,
+            "Type": 1,
             "Width": 20,
             "X": 600,
             "Y": 600
@@ -47,7 +47,7 @@
             "Orientation": 45,
             "RotationAngle": 25,
             "RotationDirection": 1,
-            "Type": 0,
+            "Type": 1,
             "Width": 20,
             "X": 700,
             "Y": 700
@@ -57,7 +57,7 @@
             "Orientation": 225,
             "RotationAngle": 15,
             "RotationDirection": 2,
-            "Type": 0,
+            "Type": 1,
             "Width": 40,
             "X": 650,
             "Y": 650
@@ -67,7 +67,7 @@
             "Orientation": 180,
             "RotationAngle": 5,
             "RotationDirection": 2,
-            "Type": 0,
+            "Type": 1,
             "Width": 30,
             "X": 700,
             "Y": 600

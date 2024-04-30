@@ -47,6 +47,10 @@ private slots:
 
     void on_ButtonSaveSession_clicked();
 
+    void turnLeft();
+
+    void turnRight();
+
 private:
     Ui::MainWindow *ui;
 

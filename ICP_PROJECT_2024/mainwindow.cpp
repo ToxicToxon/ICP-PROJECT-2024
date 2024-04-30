@@ -48,6 +48,17 @@ void MainWindow::exitButtons()
     this->close();
 }
 
+void MainWindow::turnLeft()
+{
+    this->map->turnAllUserRobots(false);
+}
+
+void MainWindow::turnRight()
+{
+    qDebug() << "turn right";
+    this->map->turnAllUserRobots(true);
+}
+
 
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
 {
@@ -79,6 +90,20 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     addObstacleButton->setGeometry(765,20, 100, 50);
     connect(addObstacleButton, &QPushButton::released, this, &MainWindow::on_add_obstacle_Button_clicked);
     scene->addWidget(addObstacleButton);
+
+    //button to turn all user robots left;
+    QPushButton* addTurnUserLeftButton = new QPushButton();
+    addTurnUserLeftButton->setText("<-");
+    addTurnUserLeftButton->setGeometry(890, 900, 100, 50);
+    connect(addTurnUserLeftButton, &QPushButton::released, this, &MainWindow::turnLeft);
+    scene->addWidget(addTurnUserLeftButton);
+
+    //button to turn all user robots right;
+    QPushButton* addTurnUserRightButton = new QPushButton();
+    addTurnUserRightButton->setText("->");
+    addTurnUserRightButton->setGeometry(1015, 900, 100, 50);
+    connect(addTurnUserRightButton, &QPushButton::released, this, &MainWindow::turnRight);
+    scene->addWidget(addTurnUserRightButton);
 }
 
 
@@ -107,10 +132,10 @@ void MainWindow::on_ButtonSimulate_clicked()
     this->ticker.start();
     this->sceneView->setScene(this->scene);
     for (SessionManager::robotData robot : data.robots) {
-        this->map->AddRobot(this->scene, robot);
+        this->map->addRobot(this->scene, robot);
     }
     for (SessionManager::obstacleData obstacle : data.obstacles) {
-        this->map->AddObstacle(this->scene, obstacle);
+        this->map->addObstacle(this->scene, obstacle);
     }
     connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
     //delete this->map;

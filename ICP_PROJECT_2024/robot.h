@@ -10,6 +10,8 @@ public:
     void move();
     void rotateLeft();
     void rotateRight();
+    void turn(bool turn);
+    int getType();
 
 private:
     int index;
@@ -20,6 +22,7 @@ private:
     int x;
     int y;
     int detection;
+    int currentAngle;
     int rotationAngle;
     int rotationDirection;
     QGraphicsItemGroup* robotGraphic;
