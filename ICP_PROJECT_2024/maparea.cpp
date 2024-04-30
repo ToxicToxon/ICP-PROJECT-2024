@@ -75,8 +75,15 @@ void MapArea::addRobot(QGraphicsScene* scene, SessionManager::robotData settings
 
 void MapArea::addObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings)
 {
-    this->obstacleBuffer.push_back(new Obstacle(settings.X, settings.Y, settings.Width, settings.Orientation,
+    this->obstacleBuffer.push_back(new Obstacle(settings.X, settings.Y, settings.Width, settings.Width, settings.Orientation,
                                                 scene->addRect(settings.X, settings.Y, settings.Width, settings.Orientation)));
+}
+
+void MapArea::setBorders(QGraphicsScene* scene, size_t x, size_t y) {
+    this->obstacleBuffer.push_back(new Obstacle(0, 0, 1, y, 0, scene->addRect(0, 0, 1, y))); // Left border
+    this->obstacleBuffer.push_back(new Obstacle(x, 0, 1, y, 0, scene->addRect(x, 0, 1, y))); // Right border
+    this->obstacleBuffer.push_back(new Obstacle(0, 0, x, 1, 0, scene->addRect(0, 0, x, 1))); // Top border
+    this->obstacleBuffer.push_back(new Obstacle(0, y, x, 1, 0, scene->addRect(0, y, x, 1))); // Bottom border
 }
 
 MapArea::~MapArea()

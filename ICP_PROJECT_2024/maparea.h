@@ -21,6 +21,7 @@ public:
     MapArea(size_t width, size_t height);
     ~MapArea();
     void drawMap(QGraphicsScene* scene);
+    void setBorders(QGraphicsScene* scene, size_t x, size_t y);
     void addRobot(QGraphicsScene* scene, SessionManager::robotData settings);
     void addObstacle(QGraphicsScene* scene, SessionManager::obstacleData settings);
     void turnAllUserRobots(bool turn); //false = left, true = right
