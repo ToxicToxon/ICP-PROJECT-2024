@@ -10,6 +10,8 @@
 #include "ui_mainwindow.h"
 #include "robot_settings.h"
 #include "obstacles.h"
+#include "savefiledialog.h"
+#include "loadfiledialog.h"
 #include "SessionManager.h"
 #include "maparea.h"
 #include <QApplication>
@@ -29,14 +31,14 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_add_robot_Button_clicked()
+void MainWindow::AddRobotButton_clicked()
 {
     robot_settings robot_settings_dialog;
     robot_settings_dialog.exec();
 }
 
 
-void MainWindow::on_add_obstacle_Button_clicked()
+void MainWindow::AddObstacleButton_clicked()
 {
     obstacles obstacles_dialog;
     obstacles_dialog.exec();
@@ -62,22 +64,21 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     QPushButton* saveCurrentState = new QPushButton();
     saveCurrentState->setText("Save");
     saveCurrentState->setGeometry(1015,20, 100, 50);
-    connect(saveCurrentState, &QPushButton::released, this, &MainWindow::on_ButtonSaveSession_clicked);
+    connect(saveCurrentState, &QPushButton::released, this, &MainWindow::ButtonSaveSession_clicked);
     scene->addWidget(saveCurrentState);
-
 
     //button to add robot;
     QPushButton* addRobotButton = new QPushButton();
     addRobotButton->setText("Add robot");
     addRobotButton->setGeometry(890,20, 100, 50);
-    connect(addRobotButton, &QPushButton::released, this, &MainWindow::on_add_robot_Button_clicked);
+    connect(addRobotButton, &QPushButton::released, this, &MainWindow::AddRobotButton_clicked);
     scene->addWidget(addRobotButton);
 
     //button to add obstacle;
     QPushButton* addObstacleButton = new QPushButton();
     addObstacleButton->setText("Add obstacle");
     addObstacleButton->setGeometry(765,20, 100, 50);
-    connect(addObstacleButton, &QPushButton::released, this, &MainWindow::on_add_obstacle_Button_clicked);
+    connect(addObstacleButton, &QPushButton::released, this, &MainWindow::AddObstacleButton_clicked);
     scene->addWidget(addObstacleButton);
 }
 
@@ -119,16 +120,12 @@ void MainWindow::on_ButtonSimulate_clicked()
 
 void MainWindow::on_ButtonLoadSession_clicked()
 {
-    SessionManager *manager = SessionManager::getManagerHandle();
-    if (manager->loadSessionData(this->ui->TextPathToFile->toPlainText())) {
-        this->ui->TextPathToFile->setPlaceholderText("Session loaded.");
-        return;
-    }
-    this->ui->TextPathToFile->setPlaceholderText("Loading failed");
+    LoadFileDialog loadfile;
+    loadfile.exec();
 }
 
-void MainWindow::on_ButtonSaveSession_clicked()
+void MainWindow::ButtonSaveSession_clicked()
 {
-    SessionManager *manager = SessionManager::getManagerHandle();
-    //manager->saveSession("/Users/ondra/Desktop/testout.json", true); // TODO: Change file to "this->ui->TextPathToFile->toPlainText()"
+    SaveFileDialog savefile;
+    savefile.exec();
 }

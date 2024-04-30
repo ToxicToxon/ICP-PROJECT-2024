@@ -10,27 +10,33 @@ CONFIG += c++17
 
 SOURCES += \
     SessionManager.cpp \
+    loadfiledialog.cpp \
     main.cpp \
     mainwindow.cpp \
     maparea.cpp \
     obstacle.cpp \
     robot.cpp \
     robot_settings.cpp \
-    obstacles.cpp
+    obstacles.cpp \
+    savefiledialog.cpp
 
 HEADERS += \
     SessionManager.h \
+    loadfiledialog.h \
     mainwindow.h \
     maparea.h \
     obstacle.h \
     robot.h \
     robot_settings.h \
-    obstacles.h
+    obstacles.h \
+    savefiledialog.h
 
 FORMS += \
+    loadfiledialog.ui \
     mainwindow.ui \
     robot_settings.ui \
-    obstacles.ui
+    obstacles.ui \
+    savefiledialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -32,12 +32,13 @@ public:
     QGraphicsScene* scene;
     QGraphicsView* sceneView;
     MapArea* map;
+    QTextEdit *fileSpecifier;
 
 
 private slots:
-    void on_add_robot_Button_clicked();
+    void AddRobotButton_clicked();
 
-    void on_add_obstacle_Button_clicked();
+    void AddObstacleButton_clicked();
 
     void on_ButtonSimulate_clicked();
 
@@ -45,7 +46,7 @@ private slots:
 
     void on_ButtonLoadSession_clicked();
 
-    void on_ButtonSaveSession_clicked();
+    void ButtonSaveSession_clicked();
 
 private:
     Ui::MainWindow *ui;
