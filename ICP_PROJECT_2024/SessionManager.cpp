@@ -6,6 +6,7 @@
  */
 
 #include "SessionManager.h"
+#include <QDebug>
 
 SessionManager* SessionManager::instance = nullptr;
 

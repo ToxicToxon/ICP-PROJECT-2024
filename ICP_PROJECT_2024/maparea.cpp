@@ -40,7 +40,7 @@ void MapArea::AddRobot(QGraphicsScene* scene, SessionManager::robotData settings
 {
     QGraphicsItem* ellipse = scene->addEllipse(settings.X, settings.Y, settings.Width, settings.Width);
     QGraphicsItem* rectangle = scene->addRect(settings.X, settings.Y, settings.Detection, settings.Width);
-    rectangle->setRotation(rectangle->rotation() + (-45));
+    rectangle->setRotation(rectangle->rotation() + (-settings.RotationAngle));
     QGraphicsItemGroup* robotGraphic = scene->createItemGroup({ellipse, rectangle});
     this->robotBuffer.push_back(new Robot(this->robotBuffer.size(), 4, settings.Type, settings.Width, settings.Orientation, settings.X, settings.Y,
                                           settings.Detection, settings.RotationAngle, settings.RotationDirection, robotGraphic));
