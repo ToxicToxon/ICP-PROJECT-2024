@@ -59,6 +59,16 @@ void MainWindow::turnRight()
     this->map->turnAllUserRobots(true);
 }
 
+void MainWindow::stop()
+{
+    this->map->stopAllUserRobots();
+}
+
+void MainWindow::go()
+{
+    this->map->goAllUserRobots();
+}
+
 
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
 {
@@ -94,7 +104,7 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     //button to turn all user robots left;
     QPushButton* addTurnUserLeftButton = new QPushButton();
     addTurnUserLeftButton->setText("<-");
-    addTurnUserLeftButton->setGeometry(890, 900, 100, 50);
+    addTurnUserLeftButton->setGeometry(765, 900, 100, 50);
     connect(addTurnUserLeftButton, &QPushButton::released, this, &MainWindow::turnLeft);
     scene->addWidget(addTurnUserLeftButton);
 
@@ -104,6 +114,20 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     addTurnUserRightButton->setGeometry(1015, 900, 100, 50);
     connect(addTurnUserRightButton, &QPushButton::released, this, &MainWindow::turnRight);
     scene->addWidget(addTurnUserRightButton);
+
+    //button to turn all user robots left;
+    QPushButton* addGoUserButton = new QPushButton();
+    addGoUserButton->setText("^");
+    addGoUserButton->setGeometry(890, 800, 100, 50);
+    connect(addGoUserButton, &QPushButton::released, this, &MainWindow::go);
+    scene->addWidget(addGoUserButton);
+
+    //button to turn all user robots right;
+    QPushButton* addStopUserButton = new QPushButton();
+    addStopUserButton->setText("x");
+    addStopUserButton->setGeometry(890, 900, 100, 50);
+    connect(addStopUserButton, &QPushButton::released, this, &MainWindow::stop);
+    scene->addWidget(addStopUserButton);
 }
 
 

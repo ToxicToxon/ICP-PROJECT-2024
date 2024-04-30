@@ -51,6 +51,10 @@ private slots:
 
     void turnRight();
 
+    void stop();
+
+    void go();
+
 private:
     Ui::MainWindow *ui;
 

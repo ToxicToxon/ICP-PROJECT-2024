@@ -8,6 +8,7 @@ class Obstacle
 public:
     Obstacle(size_t x, size_t y, size_t width, int angle, QGraphicsItem* obstacleGraphic);
     void draw(QGraphicsScene* scene);
+    QGraphicsItem* getGraphic();
 
 private:
     size_t width;
