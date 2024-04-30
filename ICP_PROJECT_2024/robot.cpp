@@ -111,7 +111,7 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
             {
                 this->collision(true, true);
                 stopFlag = true;
-                break;
+                //break;
             }
         }
         //collisions with bodies
@@ -126,14 +126,16 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
                     if(robot->getGraphic() == collidingItem)
                     {
                         this->collision(false, true);
-                        break;
+                        //break;
                     }
                 }
             }
         }
     }
-    if(collidingItems.size() == 1 && this->type == 0)
+    if(this->type == 0  && this->currentAngle == this->expectedAngle)
+    {
         this->go();
+    }
     this->robotGraphic = scene->createItemGroup({ellipse, rectangle});
     this->move();
 }
@@ -147,7 +149,9 @@ void Robot::collision(bool objectType, bool detection)
     else if(!objectType && this->type == 1 && detection) //body and detection controlled
         this->stop();
     else if(this->type == 0 && objectType && !detection) //body and obstacle
+    {
         this->stop();
+    }
     else if (this->type == 0 && objectType && detection) //detection and obstacle
     {
         this->stop();
