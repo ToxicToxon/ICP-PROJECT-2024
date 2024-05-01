@@ -62,5 +62,8 @@ private:
     Ui::MainWindow *ui;
 
     QGraphicsView *view;
+
+    // Pause button
+    QPushButton* pausePlayButton;
 };
 #endif // MAINWINDOW_H

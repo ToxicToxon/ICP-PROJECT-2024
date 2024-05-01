@@ -37,8 +37,8 @@ void MainWindow::AddRobotButton_clicked()
     size_t len = manager->getSessionData().robots.size();
     robot_settings robot_settings_dialog;
     robot_settings_dialog.exec();
-    if (len < manager->getSessionData().robots.size()) {
-        this->map->addRobot(this->scene, manager->getSessionData().robots.back());
+    for (size_t i = len; i < manager->getSessionData().robots.size(); i++) {
+        this->map->addRobot(this->scene, manager->getSessionData().robots[i]);
     }
 }
 
@@ -49,8 +49,8 @@ void MainWindow::AddObstacleButton_clicked()
     size_t len = manager->getSessionData().obstacles.size();
     obstacles obstacles_dialog;
     obstacles_dialog.exec();
-    if (len < manager->getSessionData().obstacles.size()) {
-        this->map->addObstacle(this->scene, manager->getSessionData().obstacles.back());
+    for (size_t i = len; i < manager->getSessionData().obstacles.size(); i++) {
+        this->map->addObstacle(this->scene, manager->getSessionData().obstacles[i]);
     }
 }
 
@@ -83,6 +83,12 @@ void MainWindow::go()
 void MainWindow::pausePlay()
 {
     this->map->pausePlay();
+    if (this->map->isPaused()) {
+        this->pausePlayButton->setText("Play");
+    }
+    else {
+        this->pausePlayButton->setText("Pause");
+    }
 }
 
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
@@ -90,37 +96,37 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     //button to close the window;
     QPushButton* closeWindow = new QPushButton();
     closeWindow->setText("Close");
-    closeWindow->setGeometry(1100,20, 100, 50);
+    closeWindow->setGeometry(1100,0, 100, 50);
     connect(closeWindow, &QPushButton::released, this, &MainWindow::exitButtons);
     scene->addWidget(closeWindow);
 
     //button to save current state to a file;
     QPushButton* saveCurrentState = new QPushButton();
     saveCurrentState->setText("Save");
-    saveCurrentState->setGeometry(980,20, 100, 50);
+    saveCurrentState->setGeometry(980,0, 100, 50);
     connect(saveCurrentState, &QPushButton::released, this, &MainWindow::ButtonSaveSession_clicked);
     scene->addWidget(saveCurrentState);
 
     //button to add robot;
     QPushButton* addRobotButton = new QPushButton();
     addRobotButton->setText("Add robot");
-    addRobotButton->setGeometry(860,20, 100, 50);
+    addRobotButton->setGeometry(860,0, 100, 50);
     connect(addRobotButton, &QPushButton::released, this, &MainWindow::AddRobotButton_clicked);
     scene->addWidget(addRobotButton);
 
     //button to add obstacle;
     QPushButton* addObstacleButton = new QPushButton();
     addObstacleButton->setText("Add obstacle");
-    addObstacleButton->setGeometry(740,20, 100, 50);
+    addObstacleButton->setGeometry(740,0, 100, 50);
     connect(addObstacleButton, &QPushButton::released, this, &MainWindow::AddObstacleButton_clicked);
     scene->addWidget(addObstacleButton);
 
     //button to pause/play;
-    QPushButton* addPausePlayButton = new QPushButton();
-    addPausePlayButton->setText("Play/Pause");
-    addPausePlayButton->setGeometry(620, 20, 100, 50);
-    connect(addPausePlayButton, &QPushButton::released, this, &MainWindow::pausePlay);
-    scene->addWidget(addPausePlayButton);
+    this->pausePlayButton = new QPushButton();
+    this->pausePlayButton->setText("Play");
+    this->pausePlayButton->setGeometry(620, 0, 100, 50);
+    connect(this->pausePlayButton, &QPushButton::released, this, &MainWindow::pausePlay);
+    scene->addWidget(this->pausePlayButton);
 
     //button to turn all user robots left;
     QPushButton* addTurnUserLeftButton = new QPushButton();
