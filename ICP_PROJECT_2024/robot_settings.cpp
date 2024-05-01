@@ -50,15 +50,15 @@ void robot_settings::on_saveButton_clicked()
         return;
     }
     int x_pos =  this->ui->text_x->toPlainText().toInt(&OK);
-    if (!OK) {
+    if (!OK || x_pos > 1200 - diameter || x_pos <= 0) {
         this->ui->text_x->clear();
-        this->ui->text_x->setPlaceholderText("INVALID");
+        this->ui->text_x->setPlaceholderText("X");
         return;
     }
     int y_pos = this->ui->text_y->toPlainText().toInt(&OK);
-    if (!OK) {
+    if (!OK || y_pos > 800 - diameter || y_pos <= 0) {
         this->ui->text_y->clear();
-        this->ui->text_y->setPlaceholderText("INVALID");
+        this->ui->text_y->setPlaceholderText("Y");
         return;
     }
     int fov = this->ui->text_fov->toPlainText().toInt(&OK);
@@ -74,7 +74,7 @@ void robot_settings::on_saveButton_clicked()
         return;
     }
     int r_direction = this->ui->text_r_direction->toPlainText().toInt(&OK);
-    if (!OK) {
+    if (!OK || (r_direction != 1 && r_direction != -1)) {
         this->ui->text_r_direction->clear();
         this->ui->text_r_direction->setPlaceholderText("INVALID");
         return;
@@ -106,9 +106,6 @@ void robot_settings::on_saveButton_clicked()
 
     if (this->ui && this->ui->checkBox_controlled) {
         this->ui->checkBox_controlled->setChecked(false);
-    }
-    if (this->ui && this->ui->checkBox_controlled) {
-        this->ui->checkBox_random->setChecked(false);
-    }
+    } // FIXME
 }
 
