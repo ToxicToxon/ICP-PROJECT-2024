@@ -123,7 +123,7 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
                 {
                     if(collidingItem == ellipse)
                         continue;
-                    if(robot->getGraphic() == collidingItem)
+                    if(robot->getGraphic()->childItems()[0] == collidingItem)
                     {
                         this->collision(false, true);
                         //break;
@@ -151,6 +151,8 @@ void Robot::collision(bool objectType, bool detection)
     else if(this->type == 0 && objectType && !detection) //body and obstacle
     {
         this->stop();
+        if(this->expectedAngle == this->currentAngle)
+            this->turn(this->rotationDirection);
     }
     else if (this->type == 0 && objectType && detection) //detection and obstacle
     {
