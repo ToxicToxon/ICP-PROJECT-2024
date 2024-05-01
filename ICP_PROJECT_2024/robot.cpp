@@ -60,10 +60,10 @@ QGraphicsItem* Robot::getGraphic()
     return this->robotGraphic;
 }
 
-QGraphicsItem* Robot::getDetection(int topBottom, std::vector<Obstacle *> obstacleBuffer, std::vector<Robot *> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse)
+QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std::vector<Robot *> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse)
 {
-    QGraphicsItem* rect = scene->addRect(this->x + this->width, this->y + topBottom, this->detection, this->width/2);
-    rect->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2));
+    QGraphicsItem* rect = scene->addRect(this->x + this->width, this->y, this->detection, this->width);
+    rect->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2 ));
     rect->setRotation(rect->rotation() + (-this->currentAngle));
     //collisions with obstacles
     QList<QGraphicsItem*> collidingItems;
@@ -122,8 +122,7 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
     }
     QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
     this->robotGraphic = scene->createItemGroup({ellipse});
-    this->robotGraphic->addToGroup(this->getDetection(0, obstacleBuffer, robotBuffer, scene, ellipse));
-    this->robotGraphic->addToGroup(this->getDetection(this->width/2, obstacleBuffer, robotBuffer, scene, ellipse));
+    this->robotGraphic->addToGroup(this->getDetection(obstacleBuffer, robotBuffer, scene, ellipse));
     if(this->type == 0  && this->currentAngle == this->expectedAngle)
     {
         this->go();
