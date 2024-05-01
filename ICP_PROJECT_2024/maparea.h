@@ -31,9 +31,12 @@ public:
     void removeObstacle();
     size_t getWidth();
     size_t getHeight();
+    void pausePlay();
+    bool isPaused();
 
 
 private:
+    bool paused;
     size_t width;
     size_t height;
     std::vector<Robot*> robotBuffer;

@@ -12,8 +12,8 @@ Robot::Robot(int index,int speed, int type, int width, int orientation, int x, i
     this->y = y;
     this->detection = detection;
     this->rotationAngle = (double)rotationAngle;
-    this->currentAngle = (double)rotationAngle;
-    this->expectedAngle = (double)rotationAngle;
+    this->currentAngle = (double)orientation;
+    this->expectedAngle = (double)orientation;
     if(rotationDirection == 1)
         this->rotationDirection = false;
     else
@@ -39,7 +39,7 @@ void Robot::stop()
 
 void Robot::go()
 {
-    this->speed = 4;
+    this->speed = 3;
 }
 
 int Robot::getType()
@@ -77,7 +77,10 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
     else if(this->currentAngle > this->expectedAngle + 5)
         this->currentAngle -= turningSpeed;
     else
+    {
+        this->expectedAngle = fmod(this->expectedAngle, 360);
         this->currentAngle = this->expectedAngle;
+    }
     QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
     //collisions for robot bodies
     QList<QGraphicsItem*> collidingItems = ellipse->collidingItems();
@@ -98,7 +101,7 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
     }
     //detection rectangle
     QGraphicsItem* rectangle = scene->addRect(this->x + this->width, this->y, this->detection, this->width);
-    rectangle->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y +this->width/2));
+    rectangle->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2));
     rectangle->setRotation(rectangle->rotation() + (-this->currentAngle));
     //collisions with obstacles
     collidingItems = rectangle->collidingItems();
@@ -150,9 +153,7 @@ void Robot::collision(bool objectType, bool detection)
         this->stop();
     else if(this->type == 0 && objectType && !detection) //body and obstacle
     {
-        this->stop();
-        if(this->expectedAngle == this->currentAngle)
-            this->turn(this->rotationDirection);
+        //this->stop();
     }
     else if (this->type == 0 && objectType && detection) //detection and obstacle
     {
