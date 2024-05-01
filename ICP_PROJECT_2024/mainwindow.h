@@ -56,6 +56,8 @@ private slots:
 
     void go();
 
+    void pausePlay();
+
 private:
     Ui::MainWindow *ui;
 

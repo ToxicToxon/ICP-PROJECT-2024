@@ -80,6 +80,10 @@ void MainWindow::go()
     this->map->goAllUserRobots();
 }
 
+void MainWindow::pausePlay()
+{
+    this->map->pausePlay();
+}
 
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
 {
@@ -110,6 +114,13 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
     addObstacleButton->setGeometry(740,20, 100, 50);
     connect(addObstacleButton, &QPushButton::released, this, &MainWindow::AddObstacleButton_clicked);
     scene->addWidget(addObstacleButton);
+
+    //button to pause/play;
+    QPushButton* addPausePlayButton = new QPushButton();
+    addPausePlayButton->setText("Play/Pause");
+    addPausePlayButton->setGeometry(620, 20, 100, 50);
+    connect(addPausePlayButton, &QPushButton::released, this, &MainWindow::pausePlay);
+    scene->addWidget(addPausePlayButton);
 
     //button to turn all user robots left;
     QPushButton* addTurnUserLeftButton = new QPushButton();
@@ -172,7 +183,8 @@ void MainWindow::on_ButtonSimulate_clicked()
     for (SessionManager::obstacleData obstacle : data.obstacles) {
         this->map->addObstacle(this->scene, obstacle);
     }
-
+    this->map->drawMap(this->scene);
+    this->map->pausePlay();
     connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
     //delete this->map;
 }

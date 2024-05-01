@@ -33,6 +33,8 @@ private:
     double rotationAngle;
     bool rotationDirection; //false = left, true = right
     QGraphicsItemGroup* robotGraphic;
+    QGraphicsItem* getDetection(std::vector<Obstacle*> obstacleBuffer, std::vector<Robot*> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse);
+
 };
 
 #endif // ROBOT_H

@@ -15,15 +15,19 @@ MapArea::MapArea(size_t width, size_t height)
     this->height = height;
     this->robotBuffer = {};
     this->obstacleBuffer = {};
+    this->paused = false;
 }
 
 void MapArea::drawMap(QGraphicsScene* scene)
 {
-    //foreach cycle through each robot and obstacle, draw them, clear scene with every frame
-    for(Robot* robot: this->robotBuffer)
-        robot->draw(scene, this->obstacleBuffer, this->robotBuffer);
-    for(Obstacle* obstacle: this->obstacleBuffer)
-        obstacle->draw(scene);
+    if(!paused)
+    {
+        //foreach cycle through each robot and obstacle, draw them, clear scene with every frame
+        for(Robot* robot: this->robotBuffer)
+            robot->draw(scene, this->obstacleBuffer, this->robotBuffer);
+        for(Obstacle* obstacle: this->obstacleBuffer)
+            obstacle->draw(scene);
+    }
 }
 
 void MapArea::turnAllUserRobots(bool turn)
@@ -86,5 +90,18 @@ void MapArea::setBorders(QGraphicsScene* scene, size_t x, size_t y) {
     this->obstacleBuffer.push_back(new Obstacle(0, y, x, 1, 0, scene->addRect(0, y, x, 1))); // Bottom border
 }
 
+void MapArea::pausePlay()
+{
+    if(!this->paused)
+        this->paused = true;
+    else
+        this->paused = false;
+
+}
+
+bool MapArea::isPaused()
+{
+    return this->paused;
+}
 MapArea::~MapArea()
 {}
