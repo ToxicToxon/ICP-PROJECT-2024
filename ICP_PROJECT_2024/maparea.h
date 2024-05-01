@@ -15,6 +15,8 @@
 #include "obstacle.h"
 #include <QGraphicsScene>
 #include "SessionManager.h"
+#include "objectfactory.h"
+
 class MapArea
 {
 public:
@@ -33,6 +35,7 @@ public:
     size_t getHeight();
     void pausePlay();
     bool isPaused();
+    ObjectFactory* mapObjectFactory;
 
 
 private:

@@ -2,34 +2,37 @@
 #include "qgraphicsscene.h"
 #include <QDebug>
 
-Robot::Robot(int index,int speed, int type, int width, int orientation, int x, int y, int detection, int rotationAngle, int rotationDirection, QGraphicsItemGroup* robotGraphic)
+Robot::Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene)
 {
-    this->index = index;
-    this->type = type;
-    this->width = width;
-    this->orientation = orientation;
-    this->x = x;
-    this->y = y;
-    this->detection = detection;
-    this->rotationAngle = (double)rotationAngle;
-    this->currentAngle = (double)orientation;
-    this->expectedAngle = (double)orientation;
-    if(rotationDirection == 1)
+    this->type = robot.Type;
+    this->width = (size_t)robot.Width;
+    this->x = robot.X;
+    this->y = robot.Y;
+    this->detection = robot.Detection;
+    this->rotationAngle = (double)robot.RotationAngle;
+    this->orientation = (double)robot.Orientation;
+    this->expectedAngle = (double)robot.Orientation;
+    if(robot.RotationDirection == 1)
         this->rotationDirection = false;
     else
         this->rotationDirection = true;
-    this->robotGraphic = robotGraphic;
-    if(type == 1)
+    if(robot.Type == 1)
         this->speed = 0;
     else
         this->speed = speed;
+    //draw robot and put him in the scene
+    QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
+    QGraphicsItem* rectangle = scene->addRect(this->x, this->y, this->detection, this->width);
+    rectangle->setRotation(rectangle->rotation() + (-this->orientation));
+    QGraphicsItemGroup* robotGraphic = scene->createItemGroup({ellipse, rectangle});
+    this->robotGraphic = robotGraphic;
 }
 
 void Robot::move()
 {
     //get new position using angle in radians
-    this->x += (double)this->speed*cos(this->currentAngle /57.29578);
-    this->y += (double)this->speed*(-sin(this->currentAngle /57.29578));
+    this->x += (double)this->speed*cos(this->orientation /57.29578);
+    this->y += (double)this->speed*(-sin(this->orientation /57.29578));
 }
 
 void Robot::stop()
@@ -64,7 +67,7 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
 {
     QGraphicsItem* rect = scene->addRect(this->x + this->width, this->y, this->detection, this->width);
     rect->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2 ));
-    rect->setRotation(rect->rotation() + (-this->currentAngle));
+    rect->setRotation(rect->rotation() + (-this->orientation));
     //collisions with obstacles
     QList<QGraphicsItem*> collidingItems;
     collidingItems = rect->collidingItems();
@@ -111,19 +114,19 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
         turningSpeed = 2;
     if(turningSpeed < 0.75)
         turningSpeed = 0.75;
-    if(this->currentAngle < this->expectedAngle - 5)
-        this->currentAngle += turningSpeed;
-    else if(this->currentAngle > this->expectedAngle + 5)
-        this->currentAngle -= turningSpeed;
+    if(this->orientation < this->expectedAngle - 5)
+        this->orientation += turningSpeed;
+    else if(this->orientation > this->expectedAngle + 5)
+        this->orientation -= turningSpeed;
     else
     {
         this->expectedAngle = fmod(this->expectedAngle, 360);
-        this->currentAngle = this->expectedAngle;
+        this->orientation = this->expectedAngle;
     }
     QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
     this->robotGraphic = scene->createItemGroup({ellipse});
     this->robotGraphic->addToGroup(this->getDetection(obstacleBuffer, robotBuffer, scene, ellipse));
-    if(this->type == 0  && this->currentAngle == this->expectedAngle)
+    if(this->type == 0  && this->orientation == this->expectedAngle)
     {
         this->go();
     }
@@ -139,13 +142,13 @@ void Robot::collision(bool objectType, bool detection)
     else if (this->type == 0 && objectType && detection) //detection and obstacle
     {
         this->stop();
-        if(this->expectedAngle == this->currentAngle)
+        if(this->expectedAngle == this->orientation)
             this->turn(this->rotationDirection);
     }
     else if(this->type == 0 && !objectType && detection) //body and detection
     {
         this->stop();
-        if(this->expectedAngle == this->currentAngle)
+        if(this->expectedAngle == this->orientation)
             this->turn(this->rotationDirection);
     }
 }
