@@ -14,6 +14,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     maparea.cpp \
+    objectfactory.cpp \
     obstacle.cpp \
     robot.cpp \
     robot_settings.cpp \
@@ -25,6 +26,8 @@ HEADERS += \
     loadfiledialog.h \
     mainwindow.h \
     maparea.h \
+    mapobject.h \
+    objectfactory.h \
     obstacle.h \
     robot.h \
     robot_settings.h \

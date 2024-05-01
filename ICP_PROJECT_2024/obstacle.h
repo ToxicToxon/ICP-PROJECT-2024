@@ -3,19 +3,18 @@
 
 #include "qgraphicsitem.h"
 #include <cstddef>
-class Obstacle
+#include "SessionManager.h"
+#include "mapobject.h"
+class Obstacle: public MapObject
 {
 public:
-    Obstacle(size_t x, size_t y, size_t width, size_t height, int angle, QGraphicsItem* obstacleGraphic);
-    void draw(QGraphicsScene* scene);
+    Obstacle(size_t x, size_t y, size_t width, size_t height, int orientation, QGraphicsScene* scene);
+    Obstacle(SessionManager::obstacle obstStruct, QGraphicsScene* scene);
     QGraphicsItem* getGraphic();
+    void draw(QGraphicsScene* scene);
 
 private:
-    size_t width;
     size_t height;
-    size_t x;
-    size_t y;
-    int angle;
     QGraphicsItem* obstacleGraphic;
 };
 
