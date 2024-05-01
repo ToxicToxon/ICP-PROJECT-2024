@@ -65,7 +65,10 @@ QGraphicsItem* Robot::getGraphic()
 
 QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std::vector<Robot *> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse)
 {
-    QGraphicsItem* rect = scene->addRect(this->x + this->width, this->y, this->detection, this->width);
+    QGraphicsRectItem* rect = scene->addRect(this->x + this->width, this->y, this->detection, this->width);
+    QPen detectionPen(Qt::green); // Blue color with a width of 2 pixels
+    detectionPen.setStyle(Qt::DashLine); // Style set to Dash-Dot
+    rect->setPen(detectionPen);
     rect->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2 ));
     rect->setRotation(rect->rotation() + (-this->orientation));
     //collisions with obstacles
@@ -89,8 +92,9 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
             {
                 for(QGraphicsItem* collidingItem: collidingItems)
                 {
-                    if(collidingItem == ellipse)
+                    if(collidingItem == ellipse) {
                         continue;
+                    }
                     if(robot->getGraphic()->childItems()[0] == collidingItem)
                     {
                         this->collision(false, true);
@@ -123,7 +127,9 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
         this->expectedAngle = fmod(this->expectedAngle, 360);
         this->orientation = this->expectedAngle;
     }
-    QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
+    QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem(this->x, this->y, this->width, this->width);;
+    ellipse->setBrush(QBrush(Qt::darkRed));
+    ellipse->setPen(Qt::NoPen);
     this->robotGraphic = scene->createItemGroup({ellipse});
     this->robotGraphic->addToGroup(this->getDetection(obstacleBuffer, robotBuffer, scene, ellipse));
     if(this->type == 0  && this->orientation == this->expectedAngle)

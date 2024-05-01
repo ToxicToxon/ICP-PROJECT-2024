@@ -15,7 +15,7 @@ public:
 
 private:
     size_t height;
-    QGraphicsItem* obstacleGraphic;
+    QGraphicsRectItem* obstacleGraphic;
 };
 
 #endif // OBSTACLE_H

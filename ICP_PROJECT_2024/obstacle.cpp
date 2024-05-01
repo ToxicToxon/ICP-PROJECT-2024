@@ -28,6 +28,7 @@ void Obstacle::draw(QGraphicsScene* scene)
 {
     scene->removeItem(this->obstacleGraphic);
     this->obstacleGraphic = scene->addRect(this->x,this->y,width,height);
+    this->obstacleGraphic->setBrush(Qt::black);
     this->obstacleGraphic->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y +this->width/2));
     this->obstacleGraphic->setRotation(this->obstacleGraphic->rotation() + this->orientation);
 }
