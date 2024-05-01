@@ -121,16 +121,6 @@
             "Width": 10,
             "X": 0,
             "Y": 0
-        },
-        {
-            "Detection": 30,
-            "Orientation": 799,
-            "RotationAngle": 1,
-            "RotationDirection": 1,
-            "Type": 0,
-            "Width": 20,
-            "X": 1199,
-            "Y": 799
         }
     ]
 }
