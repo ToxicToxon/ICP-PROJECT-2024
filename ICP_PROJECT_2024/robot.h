@@ -16,7 +16,7 @@ public:
     void turn(bool turn);
     void collision(bool objectType, bool detection); //true = obstacle, false = robot, true = detection, false = body
     int getType();
-    QGraphicsItem* getGraphic();
+    QGraphicsItem* getGraphic() override;
     void go();
     void stop();
 

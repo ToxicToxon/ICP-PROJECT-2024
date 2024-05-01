@@ -63,6 +63,8 @@ private:
 
     QGraphicsView *view;
 
+    void moveWindowToCenter();
+
     // Pause button
     QPushButton* pausePlayButton;
 };

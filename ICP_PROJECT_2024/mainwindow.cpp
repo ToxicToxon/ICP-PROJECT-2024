@@ -15,6 +15,7 @@
 #include "SessionManager.h"
 #include "maparea.h"
 #include <QApplication>
+#include <QGuiApplication>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -166,6 +167,22 @@ void MainWindow::draw()
 }
 
 
+/*!
+ * \brief Moves the main window to the center of the screen
+ */
+void MainWindow::moveWindowToCenter() {
+    // Get the screen geometry
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    // Move the top left corner to the correct possition
+    int x = (screenGeometry.width() - width()) / 2;
+    int y = (screenGeometry.height() - height()) / 2;
+
+    // Move the window to the center
+    move(x, y);
+}
+
+
 void MainWindow::on_ButtonSimulate_clicked()
 {
     // Load all objects for the session
@@ -174,6 +191,7 @@ void MainWindow::on_ButtonSimulate_clicked()
 
     //setup scene
     this->resize(1400, 1000); // Set size of the window
+    this->moveWindowToCenter();
     this->scene = new QGraphicsScene();
     this->scene->setSceneRect(0, 0, 1200, 800);
     this->sceneView = new QGraphicsView();
