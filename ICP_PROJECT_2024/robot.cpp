@@ -1,6 +1,6 @@
 #include "robot.h"
 #include "qgraphicsscene.h"
-#include <QDebug>
+#include <cmath>
 
 Robot::Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene)
 {
@@ -22,8 +22,9 @@ Robot::Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene)
         this->speed = speed;
     //draw robot and put him in the scene
     QGraphicsItem* ellipse = scene->addEllipse(this->x, this->y, this->width, this->width);
-    QGraphicsItem* rectangle = scene->addRect(this->x, this->y, this->detection, this->width);
+    QGraphicsItem* rectangle = scene->addRect(this->x+this->width, this->y, this->detection, this->width);
     rectangle->setRotation(rectangle->rotation() + (-this->orientation));
+    rectangle->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2 ));
     QGraphicsItemGroup* robotGraphic = scene->createItemGroup({ellipse, rectangle});
     this->robotGraphic = robotGraphic;
 }
@@ -83,6 +84,7 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
             {
                 this->collision(true, true);
                 stopFlag = true;
+                break;
             }
         }
         //collisions with robot bodies
@@ -98,6 +100,7 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
                     if(robot->getGraphic()->childItems()[0] == collidingItem)
                     {
                         this->collision(false, true);
+                        break;
                     }
                 }
             }
@@ -127,7 +130,22 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
         this->expectedAngle = fmod(this->expectedAngle, 360);
         this->orientation = this->expectedAngle;
     }
-    QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem(this->x, this->y, this->width, this->width);;
+    QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem(this->x, this->y, this->width, this->width);
+    if(type == 0)
+    {
+        QList<QGraphicsItem*> collidingItems;
+        for(Robot* robot: robotBuffer)
+        {
+            for(QGraphicsItem* collidingItem: collidingItems)
+            {
+                if(robot->getGraphic()->childItems()[0] == collidingItem)
+                {
+                    this->collision(false, true);
+                    break;
+                }
+            }
+        }
+    }
     ellipse->setBrush(QBrush(Qt::darkRed));
     ellipse->setPen(Qt::NoPen);
     this->robotGraphic = scene->createItemGroup({ellipse});
@@ -145,13 +163,7 @@ void Robot::collision(bool objectType, bool detection)
         this->stop();
     else if(!objectType && this->type == 1 && detection) //body and detection controlled
         this->stop();
-    else if (this->type == 0 && objectType && detection) //detection and obstacle
-    {
-        this->stop();
-        if(this->expectedAngle == this->orientation)
-            this->turn(this->rotationDirection);
-    }
-    else if(this->type == 0 && !objectType && detection) //body and detection
+    else if (this->type == 0) //detection and obstacle
     {
         this->stop();
         if(this->expectedAngle == this->orientation)
