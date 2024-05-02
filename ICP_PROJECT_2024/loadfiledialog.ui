@@ -10,10 +10,15 @@
     <height>168</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>American Typewriter</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="closeButton">
    <property name="geometry">
     <rect>
      <x>280</x>
@@ -36,7 +41,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="loadButton">
    <property name="geometry">
     <rect>
      <x>280</x>

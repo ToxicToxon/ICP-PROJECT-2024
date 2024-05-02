@@ -7,7 +7,6 @@
  */
 
 #include "maparea.h"
-#include <QDebug>
 
 MapArea::MapArea(size_t width, size_t height)
 {
@@ -80,7 +79,6 @@ void MapArea::addObstacle(QGraphicsScene* scene, SessionManager::obstacleData se
 
 void MapArea::setBorders(QGraphicsScene* scene, size_t x, size_t y)
 {
-    //TODO: fix to call factory
     this->obstacleBuffer.push_back(new Obstacle(0, 0, 1, y, 0, scene)); // Left border
     this->obstacleBuffer.push_back(new Obstacle(x, 0, 1, y, 0, scene)); // Right border
     this->obstacleBuffer.push_back(new Obstacle(0, 0, x, 1, 0, scene)); // Top border

@@ -1,5 +1,4 @@
 #include "robot.h"
-#include "qgraphicsscene.h"
 #include <cmath>
 
 Robot::Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene)
@@ -67,12 +66,15 @@ QGraphicsItem* Robot::getGraphic()
 QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std::vector<Robot *> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse)
 {
     QGraphicsRectItem* rect = scene->addRect(this->x + this->width, this->y, this->detection, this->width);
-    QPen detectionPen(Qt::green); // Blue color with a width of 2 pixels
-    detectionPen.setStyle(Qt::DashLine); // Style set to Dash-Dot
+
+    // colors
+    QPen detectionPen(Qt::green);
+    detectionPen.setStyle(Qt::DashLine);
     rect->setPen(detectionPen);
     rect->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y + this->width/2 ));
     rect->setRotation(rect->rotation() + (-this->orientation));
-    //collisions with obstacles
+
+    // collisions with obstacles
     QList<QGraphicsItem*> collidingItems;
     collidingItems = rect->collidingItems();
     bool stopFlag = false;
@@ -82,12 +84,13 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
         {
             if(obstacle->getGraphic() == collidingItem)
             {
-                this->collision(true, true);
+                dynamic_cast<QGraphicsEllipseItem*>(ellipse)->setBrush(QBrush(Qt::darkRed));
+                this->collision();
                 stopFlag = true;
                 break;
             }
         }
-        //collisions with robot bodies
+        // collisions with robot bodies
         if(!stopFlag)
         {
             for(Robot* robot: robotBuffer)
@@ -99,7 +102,8 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
                     }
                     if(robot->getGraphic()->childItems()[0] == collidingItem)
                     {
-                        this->collision(false, true);
+                        dynamic_cast<QGraphicsEllipseItem*>(ellipse)->setBrush(QBrush(Qt::darkRed));
+                        this->collision();
                         break;
                     }
                 }
@@ -111,9 +115,10 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
 
 void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, std::vector<Robot*> robotBuffer)
 {
-    //moving circle
+    // moving circle
     scene->removeItem(this->robotGraphic);
-    //smooth turns
+
+    // smooth turns
     double turningSpeed = this->rotationAngle*0.05;
     if(turningSpeed < 0)
         turningSpeed = -turningSpeed;
@@ -130,6 +135,7 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
         this->expectedAngle = fmod(this->expectedAngle, 360);
         this->orientation = this->expectedAngle;
     }
+
     QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem(this->x, this->y, this->width, this->width);
     if(type == 0)
     {
@@ -140,13 +146,18 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
             {
                 if(robot->getGraphic()->childItems()[0] == collidingItem)
                 {
-                    this->collision(false, true);
+                    this->collision();
                     break;
                 }
             }
         }
     }
-    ellipse->setBrush(QBrush(Qt::darkRed));
+    if (type == 1) {
+        ellipse->setBrush(QBrush(Qt::darkCyan));
+    }
+    else {
+        ellipse->setBrush(QBrush(Qt::darkGreen));
+    }
     ellipse->setPen(Qt::NoPen);
     this->robotGraphic = scene->createItemGroup({ellipse});
     this->robotGraphic->addToGroup(this->getDetection(obstacleBuffer, robotBuffer, scene, ellipse));
@@ -157,13 +168,15 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
     this->move();
 }
 
-void Robot::collision(bool objectType, bool detection)
+
+/*!
+ * \brief Switches movement
+ */
+void Robot::collision()
 {
-    if(objectType && this->type == 1 && detection) // detection and obstacle controlled
+    if(this->type == 1)
         this->stop();
-    else if(!objectType && this->type == 1 && detection) //body and detection controlled
-        this->stop();
-    else if (this->type == 0) //detection and obstacle
+    else if (this->type == 0)
     {
         this->stop();
         if(this->expectedAngle == this->orientation)

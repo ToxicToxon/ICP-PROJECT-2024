@@ -1,35 +1,42 @@
 /**
- * @file robot_settings.cpp
+ * @file robots.cpp
  * @brief Implementation of the Robot Settings dialog.
  * @author David Zatloukal
  * @author Ondřej Beneš
  * @date 16.4.2024
  */
 
-#include "robot_settings.h"
-#include "ui_robot_settings.h"
+#include "robots.h"
+#include "ui_robots.h"
 #include "SessionManager.h"
 
-robot_settings::robot_settings(QWidget *parent)
+/*!
+ * \brief Instantiates the robots
+ * \param parent Specifies which widget to inherit from
+ */
+robots::robots(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::robot_settings)
+    , ui(new Ui::robots)
 {
     ui->setupUi(this);
     this->setWindowTitle("Robot settings");
 }
 
-robot_settings::~robot_settings()
+
+/*!
+ * \brief Removes an instance of the robots
+ */
+robots::~robots()
 {
     delete ui;
 }
 
-void robot_settings::on_cancelButton_clicked()
-{
-    this->reject();
-}
 
-
-void robot_settings::on_saveButton_clicked()
+/*!
+ * \brief Saves data from robots form to SessionManager if the data is valid
+ * Upon receiving invalid values, informs the user and waits for new data, otherwise clears the form and waits for next input
+ */
+void robots::on_saveButton_clicked()
 {
     int type = 0;
     if (this->ui->checkBox_controlled->isChecked()) {
@@ -50,19 +57,19 @@ void robot_settings::on_saveButton_clicked()
         return;
     }
     int x_pos =  this->ui->text_x->toPlainText().toInt(&OK);
-    if (!OK || x_pos > 1200 - diameter || x_pos <= 0) {
+    if (!OK || x_pos >= 1200 - diameter || x_pos <= 0) {
         this->ui->text_x->clear();
         this->ui->text_x->setPlaceholderText("X");
         return;
     }
     int y_pos = this->ui->text_y->toPlainText().toInt(&OK);
-    if (!OK || y_pos > 800 - diameter || y_pos <= 0) {
+    if (!OK || y_pos >= 800 - diameter || y_pos <= 0) {
         this->ui->text_y->clear();
         this->ui->text_y->setPlaceholderText("Y");
         return;
     }
     int fov = this->ui->text_fov->toPlainText().toInt(&OK);
-    if (!OK) {
+    if (!OK || fov <= 0) {
         this->ui->text_fov->clear();
         this->ui->text_fov->setPlaceholderText("INVALID");
         return;
@@ -81,7 +88,6 @@ void robot_settings::on_saveButton_clicked()
     }
 
     SessionManager* manager = SessionManager::getManagerHandle();
-
     manager->addRobot(type, diameter, angle, x_pos, y_pos, fov, r_angle, r_direction);
 
     // Clear all textboxes
@@ -106,6 +112,6 @@ void robot_settings::on_saveButton_clicked()
 
     if (this->ui && this->ui->checkBox_controlled) {
         this->ui->checkBox_controlled->setChecked(false);
-    } // FIXME
+    }
 }
 

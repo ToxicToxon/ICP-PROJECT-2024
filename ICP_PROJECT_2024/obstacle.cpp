@@ -1,5 +1,6 @@
 #include "obstacle.h"
 #include "qgraphicsscene.h"
+
 Obstacle::Obstacle(SessionManager::obstacle obstStruct, QGraphicsScene* scene)
 {
     this->height = (size_t)obstStruct.Width;

@@ -2,9 +2,14 @@
 #define ROBOT_H
 
 #include "obstacle.h"
-#include <QGraphicsItem>
-#include <vector>
 #include "SessionManager.h"
+#include <QGraphicsItem>
+#include <QPainter>
+#include <QPixmap>
+#include <vector>
+#include <QGraphicsScene>
+#include <QDebug>
+
 class Robot : public MapObject
 {
 public:
@@ -14,7 +19,7 @@ public:
     void rotateLeft();
     void rotateRight();
     void turn(bool turn);
-    void collision(bool objectType, bool detection); //true = obstacle, false = robot, true = detection, false = body
+    void collision();
     int getType();
     QGraphicsItem* getGraphic() override;
     void go();

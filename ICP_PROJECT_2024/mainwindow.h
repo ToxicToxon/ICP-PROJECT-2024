@@ -11,7 +11,11 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <QApplication>
+#include <QGuiApplication>
+#include "ui_mainwindow.h"
 #include "maparea.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

@@ -16,7 +16,6 @@
 #include <QJsonDocument>
 #include <QDir>
 #include <QString>
-//#include <qDebug>
 #include <QJsonArray>
 
 class SessionManager

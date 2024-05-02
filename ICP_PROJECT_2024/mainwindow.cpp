@@ -1,5 +1,5 @@
 /**
- * @file mainwindow.h
+ * @file mainwindow.cpp
  * @brief
  * @author David Zatloukal
  * @author Ondřej Beneš
@@ -7,16 +7,16 @@
  */
 
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "robot_settings.h"
+#include "robots.h"
 #include "obstacles.h"
 #include "savefiledialog.h"
 #include "loadfiledialog.h"
 #include "SessionManager.h"
-#include "maparea.h"
-#include <QApplication>
-#include <QGuiApplication>
 
+/*!
+ * \brief Instantiates the MainWindow
+ * \param parent Which widget to inherit from
+ */
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -26,17 +26,24 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
+/*!
+ * \brief Deletes the instance of MainWindow
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
 
+/*!
+ * \brief Initiates the robots dialog
+ * If any robot is added, it is also loaded into the scene
+ */
 void MainWindow::AddRobotButton_clicked()
 {
     SessionManager *manager = SessionManager::getManagerHandle();
     size_t len = manager->getSessionData().robots.size();
-    robot_settings robot_settings_dialog;
+    robots robot_settings_dialog;
     robot_settings_dialog.exec();
     for (size_t i = len; i < manager->getSessionData().robots.size(); i++) {
         this->map->addRobot(this->scene, manager->getSessionData().robots[i]);
@@ -44,6 +51,10 @@ void MainWindow::AddRobotButton_clicked()
 }
 
 
+/*!
+ * \brief Initiates the obstacles dialog
+ * If any obstacle is added, it is also loaded into the scene
+ */
 void MainWindow::AddObstacleButton_clicked()
 {
     SessionManager *manager = SessionManager::getManagerHandle();
@@ -56,31 +67,55 @@ void MainWindow::AddObstacleButton_clicked()
 }
 
 
+/*!
+ * \brief Closes the window
+ */
 void MainWindow::exitButtons()
 {
     this->close();
 }
 
+
+/*!
+ * \brief Calls the maparea::turnAllUserRobots()
+ */
 void MainWindow::turnLeft()
 {
     this->map->turnAllUserRobots(false);
 }
 
+
+/*!
+ * \brief Calls the maparea::turnAllUserRobots()
+ */
 void MainWindow::turnRight()
 {
     this->map->turnAllUserRobots(true);
 }
 
+
+/*!
+ * \brief Calls the maparea::stopAllUserRobots()
+ */
 void MainWindow::stop()
 {
     this->map->stopAllUserRobots();
 }
 
+
+/*!
+ * \brief Calls the maparea::goAllUserRobots()
+ */
 void MainWindow::go()
 {
     this->map->goAllUserRobots();
 }
 
+
+/*!
+ * \brief Calls maparea::pausePlay()
+ * Also updates the text of the button
+ */
 void MainWindow::pausePlay()
 {
     this->map->pausePlay();
@@ -92,6 +127,11 @@ void MainWindow::pausePlay()
     }
 }
 
+
+/*!
+ * \brief Sets up buttons for the simulation
+ * \param scene Specifies where the bbuttons should be inserted
+ */
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
 {
     //button to close the window;
@@ -159,6 +199,10 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
 }
 
 
+/*!
+ * \brief Sets the refresh rate of the simulation and calls the drawMap function
+ * See also drawMap()
+ */
 void MainWindow::draw()
 {
     this->ticker.setInterval(10);
@@ -183,6 +227,9 @@ void MainWindow::moveWindowToCenter() {
 }
 
 
+/*!
+ * \brief Sets up the scene for simulation
+ */
 void MainWindow::on_ButtonSimulate_clicked()
 {
     // Load all objects for the session
@@ -210,16 +257,22 @@ void MainWindow::on_ButtonSimulate_clicked()
     this->map->drawMap(this->scene);
     this->map->pausePlay();
     connect(&ticker, &QTimer::timeout, this, &MainWindow::draw);
-    //delete this->map;
 }
 
 
+/*!
+ * \brief Initiates the load session dialog
+ */
 void MainWindow::on_ButtonLoadSession_clicked()
 {
     LoadFileDialog loadfile;
     loadfile.exec();
 }
 
+
+/*!
+ * \brief Initiates the save session dialog
+ */
 void MainWindow::ButtonSaveSession_clicked()
 {
     SaveFileDialog savefile;

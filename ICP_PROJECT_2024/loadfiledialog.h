@@ -2,7 +2,6 @@
 #define LOADFILEDIALOG_H
 
 #include <QDialog>
-#include "SessionManager.h"
 
 namespace Ui {
 class LoadFileDialog;
@@ -17,9 +16,9 @@ public:
     ~LoadFileDialog();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_loadButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_closeButton_clicked();
 
 private:
     Ui::LoadFileDialog *ui;

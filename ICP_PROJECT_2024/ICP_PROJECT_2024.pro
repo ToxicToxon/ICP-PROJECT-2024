@@ -17,8 +17,8 @@ SOURCES += \
     objectfactory.cpp \
     obstacle.cpp \
     robot.cpp \
-    robot_settings.cpp \
     obstacles.cpp \
+    robots.cpp \
     savefiledialog.cpp
 
 HEADERS += \
@@ -30,15 +30,15 @@ HEADERS += \
     objectfactory.h \
     obstacle.h \
     robot.h \
-    robot_settings.h \
     obstacles.h \
+    robots.h \
     savefiledialog.h
 
 FORMS += \
     loadfiledialog.ui \
     mainwindow.ui \
-    robot_settings.ui \
     obstacles.ui \
+    robots.ui \
     savefiledialog.ui
 
 # Default rules for deployment.
