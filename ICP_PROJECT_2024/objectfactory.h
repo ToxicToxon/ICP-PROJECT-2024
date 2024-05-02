@@ -1,9 +1,16 @@
+/**
+ * @file objectfactory.h
+ * @brief
+ * @author David Zatloukal
+ * @date 1.5.2024
+ */
+
 #ifndef OBJECTFACTORY_H
 #define OBJECTFACTORY_H
 
+#include "SessionManager.h"
 #include "obstacle.h"
 #include "robot.h"
-#include "SessionManager.h"
 
 class ObjectFactory
 {

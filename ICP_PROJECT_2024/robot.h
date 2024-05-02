@@ -1,3 +1,11 @@
+/**
+ * @file robot.h
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date
+ */
+
 #ifndef ROBOT_H
 #define ROBOT_H
 

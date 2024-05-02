@@ -1,6 +1,6 @@
 /**
  * @file main.cpp
- * @brief Implementation of the core of the project.
+ * @brief Implementation of the core of the project
  * @author David zatloukal
  * @author Ondřej Beneš
  * @date 20.3.2024

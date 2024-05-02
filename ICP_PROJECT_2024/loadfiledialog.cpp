@@ -1,10 +1,17 @@
+/**
+ * @file savefiledialog.cpp
+ * @brief Implementation of the load file dialog functions
+ * @author Ondřej Beneš
+ * @date 30.4.2024
+ */
+
 #include "loadfiledialog.h"
 #include "ui_loadfiledialog.h"
 #include "SessionManager.h"
 
 /*!
  * \brief Instantiates the load file dialog
- * \param parent Specifies which widget to inherit from
+ * \param parent The parent widget of this dialog
  */
 LoadFileDialog::LoadFileDialog(QWidget *parent)
     : QDialog(parent)

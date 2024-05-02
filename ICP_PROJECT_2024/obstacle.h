@@ -1,10 +1,19 @@
+/**
+ * @file obstacle.h
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date
+ */
+
 #ifndef OBSTACLE_H
 #define OBSTACLE_H
 
-#include "qgraphicsitem.h"
+#include <QGraphicsItem>
 #include <cstddef>
 #include "SessionManager.h"
 #include "mapobject.h"
+
 class Obstacle: public MapObject
 {
 public:

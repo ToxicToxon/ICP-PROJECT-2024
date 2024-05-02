@@ -1,7 +1,14 @@
+/**
+ * @file mapobject.h
+ * @brief
+ * @author David Zatloukal
+ * @date
+ */
+
 #ifndef MAPOBJECT_H
 #define MAPOBJECT_H
 
-#include "SessionManager.h"
+#include <QGraphicsItem>
 
 class MapObject
 {

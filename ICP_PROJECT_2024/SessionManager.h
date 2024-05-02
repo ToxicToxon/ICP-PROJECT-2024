@@ -1,5 +1,5 @@
 /**
- * @file SessionInterface.h
+ * @file SessionManager.h
  * @brief Definition of the singleton class SessionManager.
  * @author Ondřej Beneš
  * @date 24.4.2024

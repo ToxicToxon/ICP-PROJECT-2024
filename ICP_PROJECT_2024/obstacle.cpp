@@ -1,3 +1,11 @@
+/**
+ * @file obstacle.cpp
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date
+ */
+
 #include "obstacle.h"
 #include "qgraphicsscene.h"
 

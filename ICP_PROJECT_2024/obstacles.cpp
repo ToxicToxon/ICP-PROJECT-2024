@@ -1,10 +1,18 @@
+/**
+ * @file obstacles.cpp
+ * @brief Implementation of the obstacles dialog functions
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 28.4.2024
+ */
+
 #include "obstacles.h"
 #include "ui_obstacles.h"
 #include "SessionManager.h"
 
 /*!
- * \brief Instantiates obstacles
- * \param parent Specifies which widget to inherit form
+ * \brief Instantiates obstacles dialog
+ * \param parent The parent widget of this dialog
  */
 obstacles::obstacles(QWidget *parent)
     : QDialog(parent)

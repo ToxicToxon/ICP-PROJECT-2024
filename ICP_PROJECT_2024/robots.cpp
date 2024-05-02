@@ -1,9 +1,9 @@
 /**
  * @file robots.cpp
- * @brief Implementation of the Robot Settings dialog.
+ * @brief Implementation of the robots dialog functions
  * @author David Zatloukal
  * @author Ondřej Beneš
- * @date 16.4.2024
+ * @date 28.4.2024
  */
 
 #include "robots.h"
@@ -11,8 +11,8 @@
 #include "SessionManager.h"
 
 /*!
- * \brief Instantiates the robots
- * \param parent Specifies which widget to inherit from
+ * \brief Instantiates the robots dialog
+ * \param parent The parent widget of this dialog
  */
 robots::robots(QWidget *parent)
     : QDialog(parent)
@@ -24,7 +24,7 @@ robots::robots(QWidget *parent)
 
 
 /*!
- * \brief Removes an instance of the robots
+ * \brief Removes an instance of the robots dialog
  */
 robots::~robots()
 {
@@ -33,8 +33,8 @@ robots::~robots()
 
 
 /*!
- * \brief Saves data from robots form to SessionManager if the data is valid
- * Upon receiving invalid values, informs the user and waits for new data, otherwise clears the form and waits for next input
+ * \brief Saves data from robots dialog to SessionManager if the data is valid
+ * Upon receiving invalid values, informs the user via interface
  */
 void robots::on_saveButton_clicked()
 {

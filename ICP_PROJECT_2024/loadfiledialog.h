@@ -1,3 +1,10 @@
+/**
+ * @file loadfiledialog.h
+ * @brief Declaration of the load file dialog functions
+ * @author Ondřej Beneš
+ * @date 30.4.2024
+ */
+
 #ifndef LOADFILEDIALOG_H
 #define LOADFILEDIALOG_H
 

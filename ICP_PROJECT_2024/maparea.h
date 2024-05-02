@@ -2,7 +2,6 @@
  * @file maparea.h
  * @brief
  * @author David Zatloukal
- * @author Ondřej Beneš
  * @date 29.4.2024
  */
 

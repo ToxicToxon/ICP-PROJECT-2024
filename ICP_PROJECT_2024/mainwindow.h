@@ -1,6 +1,6 @@
 /**
  * @file mainwindow.h
- * @brief
+ * @brief Declaration of the MainWindow class
  * @author David Zatloukal
  * @author Ondřej Beneš
  * @date 17.3.2024

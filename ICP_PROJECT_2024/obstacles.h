@@ -1,3 +1,11 @@
+/**
+ * @file obstacles.h
+ * @brief Declaration of the obstacles dialog functions
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 28.4.2024
+ */
+
 #ifndef OBSTACLES_H
 #define OBSTACLES_H
 

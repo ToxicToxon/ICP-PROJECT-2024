@@ -1,3 +1,10 @@
+/**
+ * @file objectfactory.cpp
+ * @brief
+ * @author David Zatloukal
+ * @date 1.5.2024
+ */
+
 #include "objectfactory.h"
 
 MapObject* ObjectFactory::createMapObject(SessionManager::obstacle* obstStruct, SessionManager::robot* robot, QGraphicsScene* scene)

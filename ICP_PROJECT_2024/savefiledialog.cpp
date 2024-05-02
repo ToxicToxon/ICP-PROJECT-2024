@@ -1,11 +1,17 @@
+/**
+ * @file savefiledialog.cpp
+ * @brief Implementation of the save file dialog functions
+ * @author Ondřej Beneš
+ * @date 30.4.2024
+ */
+
 #include "savefiledialog.h"
 #include "SessionManager.h"
 #include "ui_savefiledialog.h"
 
-
 /*!
  * \brief Instantiates the save file dialog
- * \param parent Specifies which widget to inherit from
+ * \param parent The parent widget of this dialog
  */
 SaveFileDialog::SaveFileDialog(QWidget *parent)
     : QDialog(parent)

@@ -1,3 +1,11 @@
+/**
+ * @file robot.cpp
+ * @brief
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 1.5.2024
+ */
+
 #include "robot.h"
 #include <cmath>
 

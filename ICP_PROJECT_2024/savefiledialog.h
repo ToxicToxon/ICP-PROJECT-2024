@@ -1,3 +1,10 @@
+/**
+ * @file savefiledialog.h
+ * @brief Declaration of the save file dialog functions
+ * @author Ondřej Beneš
+ * @date 30.4.2024
+ */
+
 #ifndef SAVEFILEDIALOG_H
 #define SAVEFILEDIALOG_H
 

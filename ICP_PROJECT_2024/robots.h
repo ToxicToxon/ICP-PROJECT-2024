@@ -1,3 +1,11 @@
+/**
+ * @file robots.h
+ * @brief Declaration of the robots dialog functions
+ * @author David Zatloukal
+ * @author Ondřej Beneš
+ * @date 28.4.2024
+ */
+
 #ifndef ROBOTS_H
 #define ROBOTS_H
 

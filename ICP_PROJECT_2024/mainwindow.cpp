@@ -1,6 +1,7 @@
 /**
  * @file mainwindow.cpp
- * @brief
+ * @brief Implementation of the MainWindow class
+ * Defines the objects present in simulation window and their behaviour
  * @author David Zatloukal
  * @author Ondřej Beneš
  * @date 17.3.2024
@@ -15,7 +16,7 @@
 
 /*!
  * \brief Instantiates the MainWindow
- * \param parent Which widget to inherit from
+ * \param parent The parent widget of this dialog
  */
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -27,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
 /*!
- * \brief Deletes the instance of MainWindow
+ * \brief Deletes an instance of MainWindow
  */
 MainWindow::~MainWindow()
 {
@@ -129,7 +130,7 @@ void MainWindow::pausePlay()
 
 
 /*!
- * \brief Sets up buttons for the simulation
+ * \brief Sets up buttons for the simulation window
  * \param scene Specifies where the bbuttons should be inserted
  */
 void MainWindow::createSceneButtons(QGraphicsScene* scene)
@@ -201,7 +202,6 @@ void MainWindow::createSceneButtons(QGraphicsScene* scene)
 
 /*!
  * \brief Sets the refresh rate of the simulation and calls the drawMap function
- * See also drawMap()
  */
 void MainWindow::draw()
 {
