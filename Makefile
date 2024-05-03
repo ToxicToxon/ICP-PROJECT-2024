@@ -26,7 +26,7 @@ clean:
 	rm -f xzatlo27_xbenes61.zip
 
 pack:
-	zip -r xzatlo27_xbenes61.zip src Makefile README.txt LICENSE
+	zip -r xzatlo27_xbenes61.zip src Makefile README.txt LICENSE examples
 
 run:
 	./build/ICP_PROJECT_2024

@@ -20,12 +20,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("Robot simulation");
+    this->map = nullptr;
 }
 
 
 MainWindow::~MainWindow()
 {
-    delete this->map;
+    if(this->map != nullptr)
+        delete this->map;
     delete ui;
 }
 
