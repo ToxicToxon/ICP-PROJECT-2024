@@ -1,9 +1,9 @@
 /**
  * @file robot.cpp
- * @brief
+ * @brief Implementations of Robot class methods
  * @author David Zatloukal
  * @author Ondřej Beneš
- * @date 1.5.2024
+ * @date 29.4.2024
  */
 
 #include "robot.h"
@@ -37,6 +37,7 @@ Robot::Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene)
     this->robotGraphic = robotGraphic;
 }
 
+
 void Robot::move()
 {
     //get new position using angle in radians
@@ -44,33 +45,41 @@ void Robot::move()
     this->y += (double)this->speed*(-sin(this->orientation /57.29578));
 }
 
+
 void Robot::stop()
 {
     this->speed = 0;
 }
+
 
 void Robot::go()
 {
     this->speed = 3;
 }
 
+
 int Robot::getType()
 {
     return this->type;
 }
 
+
 void Robot::turn(bool turn)
 {
+    // left
     if(turn == false)
         this->expectedAngle += this->rotationAngle;
+    // right
     else
         this->expectedAngle -= this->rotationAngle;
 }
+
 
 QGraphicsItem* Robot::getGraphic()
 {
     return this->robotGraphic;
 }
+
 
 QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std::vector<Robot *> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse)
 {
@@ -118,7 +127,7 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
                 }
             }
         }
-        if(this->stuck && !this->detected)
+        if(this->stuck && !this->detected && !this->type) // two self-controlled robots got stuck on each other
         {
             this->go();
             this->stuck = false;
@@ -126,6 +135,7 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
     }
     return rect;
 }
+
 
 QGraphicsEllipseItem* Robot::getBody(std::vector<Robot*> robotBuffer)
 {
@@ -136,6 +146,7 @@ QGraphicsEllipseItem* Robot::getBody(std::vector<Robot*> robotBuffer)
     {
         ellipse->setBrush(QBrush(Qt::darkGreen));
     }
+    //detect collisions between robot bodies
     if(type == 0)
     {
         for(Robot* robot : robotBuffer)
@@ -154,6 +165,7 @@ QGraphicsEllipseItem* Robot::getBody(std::vector<Robot*> robotBuffer)
     ellipse->setPen(Qt::NoPen);
     return ellipse;
 }
+
 
 void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, std::vector<Robot*> robotBuffer)
 {
@@ -179,9 +191,6 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
 }
 
 
-/*!
- * \brief Switches movement
- */
 void Robot::collision()
 {
     if(this->type == 1)

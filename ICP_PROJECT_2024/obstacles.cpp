@@ -10,10 +10,6 @@
 #include "ui_obstacles.h"
 #include "SessionManager.h"
 
-/*!
- * \brief Instantiates obstacles dialog
- * \param parent The parent widget of this dialog
- */
 obstacles::obstacles(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::obstacles)
@@ -23,19 +19,12 @@ obstacles::obstacles(QWidget *parent)
 }
 
 
-/*!
- * \brief Removes an instance of obstacles
- */
 obstacles::~obstacles()
 {
     delete ui;
 }
 
 
-/*!
- * \brief Saves data from obstacles form to SessionManager if the data is valid
- * Upon receiving invalid values, informs the user and waits for new data, otherwise clears the form and waits for next input
- */
 void obstacles::on_saveButton_clicked()
 {
     bool OK = false;

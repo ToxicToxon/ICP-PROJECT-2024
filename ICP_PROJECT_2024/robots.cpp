@@ -10,10 +10,6 @@
 #include "ui_robots.h"
 #include "SessionManager.h"
 
-/*!
- * \brief Instantiates the robots dialog
- * \param parent The parent widget of this dialog
- */
 robots::robots(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::robots)
@@ -23,19 +19,12 @@ robots::robots(QWidget *parent)
 }
 
 
-/*!
- * \brief Removes an instance of the robots dialog
- */
 robots::~robots()
 {
     delete ui;
 }
 
 
-/*!
- * \brief Saves data from robots dialog to SessionManager if the data is valid
- * Upon receiving invalid values, informs the user via interface
- */
 void robots::on_saveButton_clicked()
 {
     int type = 0;

@@ -1,11 +1,13 @@
 /**
  * @file objectfactory.cpp
- * @brief
+ * @brief Implementation of ObjectFactory method
  * @author David Zatloukal
  * @date 1.5.2024
  */
 
 #include "objectfactory.h"
+#include "obstacle.h"
+#include "robot.h"
 
 MapObject* ObjectFactory::createMapObject(SessionManager::obstacle* obstStruct, SessionManager::robot* robot, QGraphicsScene* scene)
 {

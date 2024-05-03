@@ -1,8 +1,8 @@
 /**
  * @file mapobject.h
- * @brief
+ * @brief Parent class for obstacles and robots
  * @author David Zatloukal
- * @date
+ * @date 1.5.2024
  */
 
 #ifndef MAPOBJECT_H
@@ -13,12 +13,18 @@
 class MapObject
 {
 public:
-    //abstract class
+    /*!
+     * \brief Method to get objects shapes
+     * \return Objects drawn shape
+     */
     virtual QGraphicsItem* getGraphic() = 0;
 
     size_t width;
+
     double orientation;
+
     double x;
+
     double y;
 };
 

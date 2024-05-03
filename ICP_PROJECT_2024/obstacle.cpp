@@ -1,9 +1,9 @@
 /**
  * @file obstacle.cpp
- * @brief
+ * @brief Implementations of Obstacle class methods
  * @author David Zatloukal
  * @author Ondřej Beneš
- * @date
+ * @date 29.4.2024
  */
 
 #include "obstacle.h"
@@ -21,6 +21,7 @@ Obstacle::Obstacle(SessionManager::obstacle obstStruct, QGraphicsScene* scene)
     this->obstacleGraphic->setRotation(this->obstacleGraphic->rotation() + this->orientation);
 }
 
+
 Obstacle::Obstacle(size_t x, size_t y, size_t width, size_t height, int orientation, QGraphicsScene* scene)
 {
     this->x = x;
@@ -31,10 +32,13 @@ Obstacle::Obstacle(size_t x, size_t y, size_t width, size_t height, int orientat
     this->obstacleGraphic = scene->addRect(x, y, width, height);
 }
 
+
 QGraphicsItem* Obstacle::getGraphic()
 {
     return this->obstacleGraphic;
 }
+
+
 void Obstacle::draw(QGraphicsScene* scene)
 {
     scene->removeItem(this->obstacleGraphic);
