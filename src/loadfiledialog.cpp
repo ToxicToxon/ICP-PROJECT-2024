@@ -1,5 +1,5 @@
-/**
- * @file savefiledialog.cpp
+/*!
+ * @file loadfiledialog.cpp
  * @brief Implementation of the load file dialog functions
  * @author Ondřej Beneš
  * @date 30.4.2024

@@ -1,0 +1,19 @@
+
+# File: Makefile
+# Author: David Zatloukal, Ondřej Beneš
+# Date: 3.5.2024
+GENERATE_HTML = YES
+SOURCE_BROWSER = YES
+GENERATE_LATEX = NO
+EXCLUDE =  ./moc_loadfiledialog.cpp
+EXCLUDE += ./moc_mainwindow.cpp
+EXCLUDE += ./moc_obstacles.cpp
+EXCLUDE += ./moc_predefs.h
+EXCLUDE += ./moc_robots.cpp
+EXCLUDE += ./moc_savefiledialog.cpp
+EXCLUDE += ./ui_loadfiledialog.h
+EXCLUDE += ./ui_mainwindow.h
+EXCLUDE += ./ui_obstacles.h
+EXCLUDE += ./ui_robots.h
+EXCLUDE += ./ui_savefiledialog.h
+OUTPUT_DIRECTORY = ../doc
