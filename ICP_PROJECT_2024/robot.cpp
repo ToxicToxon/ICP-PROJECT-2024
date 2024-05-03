@@ -77,7 +77,7 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
 
     // collisions with obstacles
     QList<QGraphicsItem*> collidingItems = rect->collidingItems();
-    bool stopFlag = false;
+    this->detected = false;
     for(Obstacle* obstacle: obstacleBuffer)
     {
         for(QGraphicsItem* collidingItem: collidingItems)
@@ -86,12 +86,12 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
             {
                 dynamic_cast<QGraphicsEllipseItem*>(ellipse)->setBrush(QBrush(Qt::darkRed));
                 this->collision();
-                stopFlag = true;
+                this->detected = true;
                 break;
             }
         }
         // collisions with robot bodies
-        if(!stopFlag)
+        if(!this->detected)
         {
             for(Robot* robot: robotBuffer)
             {
@@ -104,10 +104,16 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
                     {
                         dynamic_cast<QGraphicsEllipseItem*>(ellipse)->setBrush(QBrush(Qt::darkRed));
                         this->collision();
+                        this->detected = true;
                         break;
                     }
                 }
             }
+        }
+        if(this->stuck && !this->detected)
+        {
+            this->go();
+            this->stuck = false;
         }
     }
     return rect;
@@ -120,11 +126,6 @@ QGraphicsEllipseItem* Robot::getBody(std::vector<Robot*> robotBuffer)
         ellipse->setBrush(QBrush(Qt::darkCyan));
     else
     {
-        if(this->stuck)
-        {
-            this->go();
-            this->stuck = false;
-        }
         ellipse->setBrush(QBrush(Qt::darkGreen));
     }
     if(type == 0)

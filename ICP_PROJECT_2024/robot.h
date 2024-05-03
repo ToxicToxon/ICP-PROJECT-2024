@@ -30,6 +30,7 @@ private:
     int speed;
     int detection;
     bool stuck;
+    bool detected;
     double expectedAngle;
     double rotationAngle;
     bool rotationDirection; //false = left, true = right
