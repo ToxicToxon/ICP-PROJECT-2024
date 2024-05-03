@@ -37,11 +37,14 @@ private:
     int type;
     int speed;
     int detection;
+    bool stuck;
+    bool detected;
     double expectedAngle;
     double rotationAngle;
     bool rotationDirection; //false = left, true = right
     QGraphicsItemGroup* robotGraphic;
     QGraphicsItem* getDetection(std::vector<Obstacle*> obstacleBuffer, std::vector<Robot*> robotBuffer, QGraphicsScene* scene, QGraphicsItem* ellipse);
+    QGraphicsEllipseItem* getBody(std::vector<Robot*> robotBuffer);
 
 };
 

@@ -15,6 +15,7 @@ Robot::Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene)
     this->width = (size_t)robot.Width;
     this->x = robot.X;
     this->y = robot.Y;
+    this->stuck = false;
     this->detection = robot.Detection;
     this->rotationAngle = (double)robot.RotationAngle;
     this->orientation = (double)robot.Orientation;
@@ -83,9 +84,8 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
     rect->setRotation(rect->rotation() + (-this->orientation));
 
     // collisions with obstacles
-    QList<QGraphicsItem*> collidingItems;
-    collidingItems = rect->collidingItems();
-    bool stopFlag = false;
+    QList<QGraphicsItem*> collidingItems = rect->collidingItems();
+    this->detected = false;
     for(Obstacle* obstacle: obstacleBuffer)
     {
         for(QGraphicsItem* collidingItem: collidingItems)
@@ -94,12 +94,12 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
             {
                 dynamic_cast<QGraphicsEllipseItem*>(ellipse)->setBrush(QBrush(Qt::darkRed));
                 this->collision();
-                stopFlag = true;
+                this->detected = true;
                 break;
             }
         }
         // collisions with robot bodies
-        if(!stopFlag)
+        if(!this->detected)
         {
             for(Robot* robot: robotBuffer)
             {
@@ -112,13 +112,47 @@ QGraphicsItem* Robot::getDetection( std::vector<Obstacle *> obstacleBuffer, std:
                     {
                         dynamic_cast<QGraphicsEllipseItem*>(ellipse)->setBrush(QBrush(Qt::darkRed));
                         this->collision();
+                        this->detected = true;
                         break;
                     }
                 }
             }
         }
+        if(this->stuck && !this->detected)
+        {
+            this->go();
+            this->stuck = false;
+        }
     }
     return rect;
+}
+
+QGraphicsEllipseItem* Robot::getBody(std::vector<Robot*> robotBuffer)
+{
+    QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem(this->x, this->y, this->width, this->width);
+    if (type == 1)
+        ellipse->setBrush(QBrush(Qt::darkCyan));
+    else
+    {
+        ellipse->setBrush(QBrush(Qt::darkGreen));
+    }
+    if(type == 0)
+    {
+        for(Robot* robot : robotBuffer)
+        {
+            if(robot == this)
+                continue;
+            if(ellipse->collidesWithItem(robot->getGraphic()->childItems()[0]) && this->orientation == this->expectedAngle)
+            {
+                ellipse->setBrush(QBrush(Qt::darkRed));
+                this->collision();
+                this->stuck = true;
+                break;
+            }
+        }
+    }
+    ellipse->setPen(Qt::NoPen);
+    return ellipse;
 }
 
 void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, std::vector<Robot*> robotBuffer)
@@ -127,52 +161,20 @@ void Robot::draw(QGraphicsScene* scene, std::vector<Obstacle*> obstacleBuffer, s
     scene->removeItem(this->robotGraphic);
 
     // smooth turns
-    double turningSpeed = this->rotationAngle*0.05;
-    if(turningSpeed < 0)
-        turningSpeed = -turningSpeed;
-    if(turningSpeed > 2)
-        turningSpeed = 2;
-    if(turningSpeed < 0.75)
-        turningSpeed = 0.75;
     if(this->orientation < this->expectedAngle - 5)
-        this->orientation += turningSpeed;
+        this->orientation += 2;
     else if(this->orientation > this->expectedAngle + 5)
-        this->orientation -= turningSpeed;
+        this->orientation -= 2;
     else
     {
         this->expectedAngle = fmod(this->expectedAngle, 360);
         this->orientation = this->expectedAngle;
     }
-
-    QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem(this->x, this->y, this->width, this->width);
-    if(type == 0)
-    {
-        QList<QGraphicsItem*> collidingItems;
-        for(Robot* robot: robotBuffer)
-        {
-            for(QGraphicsItem* collidingItem: collidingItems)
-            {
-                if(robot->getGraphic()->childItems()[0] == collidingItem)
-                {
-                    this->collision();
-                    break;
-                }
-            }
-        }
-    }
-    if (type == 1) {
-        ellipse->setBrush(QBrush(Qt::darkCyan));
-    }
-    else {
-        ellipse->setBrush(QBrush(Qt::darkGreen));
-    }
-    ellipse->setPen(Qt::NoPen);
-    this->robotGraphic = scene->createItemGroup({ellipse});
-    this->robotGraphic->addToGroup(this->getDetection(obstacleBuffer, robotBuffer, scene, ellipse));
+    // creating body and detection rectangle
+    this->robotGraphic = scene->createItemGroup({this->getBody(robotBuffer)});
+    this->robotGraphic->addToGroup(this->getDetection(obstacleBuffer, robotBuffer, scene, this->robotGraphic->childItems()[0]));
     if(this->type == 0  && this->orientation == this->expectedAngle)
-    {
         this->go();
-    }
     this->move();
 }
 
