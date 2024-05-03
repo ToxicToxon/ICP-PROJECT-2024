@@ -30,6 +30,11 @@ public:
     Robot(int speed, SessionManager::robot robot, QGraphicsScene* scene);
 
     /*!
+     *  Deletes an instance of Robot
+     */
+    ~Robot();
+
+    /*!
      * \brief Redraws the robot every tick and checks for collisions
      * \param scene Current scene to redraw to
      * \param obstacleBuffer Buffer with obstacle instances

@@ -35,6 +35,11 @@ public:
     Obstacle(SessionManager::obstacle obstStruct, QGraphicsScene* scene);
 
     /*!
+     *  \brief Deletes Obstacle instance
+     */
+    ~Obstacle();
+
+    /*!
      * \brief Method to get QGraphicsItem
      * \return Objects shape
      */

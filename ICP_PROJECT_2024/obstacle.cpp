@@ -47,3 +47,9 @@ void Obstacle::draw(QGraphicsScene* scene)
     this->obstacleGraphic->setTransformOriginPoint(QPoint(this->x + this->width/2,this->y +this->width/2));
     this->obstacleGraphic->setRotation(this->obstacleGraphic->rotation() + this->orientation);
 }
+
+
+Obstacle::~Obstacle()
+{
+    delete this->obstacleGraphic;
+}

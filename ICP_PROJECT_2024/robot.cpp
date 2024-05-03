@@ -202,3 +202,13 @@ void Robot::collision()
             this->turn(this->rotationDirection);
     }
 }
+
+
+Robot::~Robot()
+{
+    for(QGraphicsItem* item: this->robotGraphic->childItems())
+    {
+        delete item;
+    }
+    delete this->robotGraphic;
+}
