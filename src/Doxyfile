@@ -5,6 +5,7 @@
 GENERATE_HTML = YES
 SOURCE_BROWSER = YES
 GENERATE_LATEX = NO
+PROJECT_NAME = "ICP_PROJECT_2024"
 EXCLUDE =  ./moc_loadfiledialog.cpp
 EXCLUDE += ./moc_mainwindow.cpp
 EXCLUDE += ./moc_obstacles.cpp
