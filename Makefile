@@ -18,16 +18,17 @@ doxygen:
 	cd ..
 
 clean:
-	cd src;\
-	make clean; \
-	rm -f Makefile; \
-	cd ..; \
 	rm -f -d -r build; \
 	rm -f -d -r doc; \
 	rm -f xzatlo27_xbenes61.zip
+	cd src; \
+	make clean; \
+	rm -f Makefile; \
+	rm -f .qmake.stash
+	cd ..
 
 pack:
-	zip -r xzatlo27_xbenes61.zip src Makefile README.txt LICENSE examples
+	zip -r xzatlo27_xbenes61.zip src Makefile README.txt LICENSE examples UML_Diagram.pdf
 
 run:
 	./build/ICP_PROJECT_2024
