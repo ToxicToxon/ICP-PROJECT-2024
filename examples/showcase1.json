@@ -1,0 +1,154 @@
+{
+    "Obstacles": [
+        {
+            "Orientation": 0,
+            "Width": 60,
+            "X": 0,
+            "Y": 370
+        },
+        {
+            "Orientation": 0,
+            "Width": 60,
+            "X": 1140,
+            "Y": 370
+        },
+        {
+            "Orientation": 45,
+            "Width": 60,
+            "X": 570,
+            "Y": 80
+        },
+        {
+            "Orientation": 45,
+            "Width": 60,
+            "X": 570,
+            "Y": 660
+        },
+        {
+            "Orientation": 0,
+            "Width": 80,
+            "X": 260,
+            "Y": 160
+        },
+        {
+            "Orientation": 0,
+            "Width": 80,
+            "X": 860,
+            "Y": 560
+        },
+        {
+            "Orientation": 0,
+            "Width": 200,
+            "X": 500,
+            "Y": 300
+        },
+        {
+            "Orientation": 45,
+            "Width": 200,
+            "X": 500,
+            "Y": 300
+        }
+    ],
+    "Robots": [
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 30,
+            "X": 100,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 30,
+            "X": 140,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 30,
+            "X": 180,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 30,
+            "X": 220,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 30,
+            "X": 260,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 30,
+            "X": 300,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 30,
+            "X": 340,
+            "Y": 400
+        },
+        {
+            "Detection": 50,
+            "Orientation": 0,
+            "RotationAngle": 45,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 30,
+            "X": 380,
+            "Y": 400
+        },
+        {
+            "Detection": 20,
+            "Orientation": 0,
+            "RotationAngle": 90,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 60,
+            "X": 2,
+            "Y": 2
+        },
+        {
+            "Detection": 20,
+            "Orientation": 180,
+            "RotationAngle": 90,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 60,
+            "X": 1139,
+            "Y": 739
+        }
+    ]
+}

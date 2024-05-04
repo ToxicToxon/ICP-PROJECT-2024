@@ -1,0 +1,84 @@
+{
+    "Obstacles": [
+        {
+            "Orientation": 0,
+            "Width": 400,
+            "X": 0,
+            "Y": 0
+        },
+        {
+            "Orientation": 0,
+            "Width": 400,
+            "X": 800,
+            "Y": 400
+        },
+        {
+            "Orientation": 45,
+            "Width": 100,
+            "X": 350,
+            "Y": 422
+        },
+        {
+            "Orientation": 45,
+            "Width": 100,
+            "X": 750,
+            "Y": 278
+        },
+        {
+            "Orientation": 0,
+            "Width": 200,
+            "X": 0,
+            "Y": 500
+        },
+        {
+            "Orientation": 0,
+            "Width": 200,
+            "X": 1000,
+            "Y": 100
+        },
+        {
+            "Orientation": 0,
+            "Width": 60,
+            "X": 580,
+            "Y": 0
+        },
+        {
+            "Orientation": 0,
+            "Width": 60,
+            "X": 480,
+            "Y": 740
+        }
+    ],
+    "Robots": [
+        {
+            "Detection": 30,
+            "Orientation": 0,
+            "RotationAngle": 1,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 20,
+            "X": 40,
+            "Y": 440
+        },
+        {
+            "Detection": 30,
+            "Orientation": 180,
+            "RotationAngle": 1,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 20,
+            "X": 1160,
+            "Y": 340
+        },
+        {
+            "Detection": 10,
+            "Orientation": 45,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 1,
+            "Width": 20,
+            "X": 410,
+            "Y": 390
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "Obstacles": [
+        {
+            "Orientation": 0,
+            "Width": 700,
+            "X": 250,
+            "Y": 50
+        }
+    ],
+    "Robots": [
+        {
+            "Detection": 5,
+            "Orientation": 90,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 40,
+            "X": 105,
+            "Y": 100
+        },
+        {
+            "Detection": 5,
+            "Orientation": 90,
+            "RotationAngle": 45,
+            "RotationDirection": -1,
+            "Type": 0,
+            "Width": 40,
+            "X": 105,
+            "Y": 670
+        },
+        {
+            "Detection": 5,
+            "Orientation": 90,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 40,
+            "X": 1095,
+            "Y": 100
+        },
+        {
+            "Detection": 5,
+            "Orientation": 90,
+            "RotationAngle": 45,
+            "RotationDirection": 1,
+            "Type": 0,
+            "Width": 40,
+            "X": 1095,
+            "Y": 670
+        }
+    ]
+}

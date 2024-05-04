@@ -2,8 +2,9 @@
 # Author: David Zatloukal, Ondřej Beneš
 # Date: 3.5.2024
 
+all: app doxygen
 
-All: doxygen
+app:
 	cd src; \
 	qmake ./ICP_PROJECT_2024.pro; \
 	make; \
