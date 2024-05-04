@@ -115,7 +115,6 @@ bool MapArea::isPaused()
 
 MapArea::~MapArea()
 {
-    //TODO: delete all vector fields
     for(Robot* robot:this->robotBuffer)
         delete robot;
     for(Obstacle* obstacle: this->obstacleBuffer)

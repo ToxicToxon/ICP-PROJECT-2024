@@ -19,6 +19,11 @@ public:
      */
     virtual QGraphicsItem* getGraphic() = 0;
 
+    /*!
+     * \brief Default destructor for MapObject
+     */
+    virtual ~MapObject(){};
+
     size_t width;
 
     double orientation;
